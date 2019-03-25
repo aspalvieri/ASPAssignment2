@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ASPAssignment2.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +14,10 @@ namespace ASPAssignment2
     {
         protected void Application_Start()
         {
+            Database.SetInitializer(new DatabaseContextInitializer());
+
             AreaRegistration.RegisterAllAreas();
+            UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

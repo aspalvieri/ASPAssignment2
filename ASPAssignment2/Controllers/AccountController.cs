@@ -57,6 +57,11 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            //If user is already logged in, redirect them back to home
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("../"); //www.site.com/Account/Login -> www.site.com/
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -139,6 +144,11 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //If user is already logged in, redirect them back to home
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("../"); //www.site.com/Account/Login -> www.site.com/
+            }
             return View();
         }
 
