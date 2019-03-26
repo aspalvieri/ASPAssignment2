@@ -16,7 +16,7 @@ namespace ASPAssignment2.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            VideoGamesController controller = new VideoGamesController();
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -25,11 +25,14 @@ namespace ASPAssignment2.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
+        /*
+        //Deleted method, from initial build
+        //Use this as example for making new unit tests requiring ViewBag
         [TestMethod]
         public void About()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            VideoGamesController controller = new VideoGamesController();
 
             // Act
             ViewResult result = controller.About() as ViewResult;
@@ -37,18 +40,6 @@ namespace ASPAssignment2.Tests.Controllers
             // Assert
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
+        */
     }
 }

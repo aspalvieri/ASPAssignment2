@@ -52,6 +52,8 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/Index
+        [Route("Manage")]
+        [Route("Manage/Index")]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -77,6 +79,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/RemoveLogin
+        [Route("Manage/RemoveLogin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -101,6 +104,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        [Route("Manage/AddPhoneNumber")]
         public ActionResult AddPhoneNumber()
         {
             return View();
@@ -108,6 +112,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/AddPhoneNumber
+        [Route("Manage/AddPhoneNumber")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
@@ -132,6 +137,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
+        [Route("Manage/EnableTwoFactorAuthentication")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
@@ -147,6 +153,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/DisableTwoFactorAuthentication
+        [Route("Manage/DisableTwoFactorAuthentication")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -162,6 +169,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [Route("Manage/VerifyPhoneNumber")]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -171,6 +179,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/VerifyPhoneNumber
+        [Route("Manage/VerifyPhoneNumber")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
@@ -196,6 +205,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/RemovePhoneNumber
+        [Route("Manage/RemovePhoneNumber")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
@@ -215,6 +225,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        [Route("Manage/ChangePassword")]
         public ActionResult ChangePassword()
         {
             return View();
@@ -222,6 +233,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/ChangePassword
+        [Route("Manage/ChangePassword")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -246,6 +258,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/SetPassword
+        [Route("Manage/SetPassword")]
         public ActionResult SetPassword()
         {
             return View();
@@ -253,6 +266,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/SetPassword
+        [Route("Manage/SetPassword")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -278,6 +292,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/ManageLogins
+        [Route("Manage/ManageLogins")]
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -301,6 +316,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Manage/LinkLogin
+        [Route("Manage/LinkLogin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
@@ -311,6 +327,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Manage/LinkLoginCallback
+        [Route("Manage/LinkLoginCallback")]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());

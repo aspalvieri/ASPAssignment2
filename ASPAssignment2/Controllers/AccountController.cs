@@ -54,6 +54,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/Login
+        [Route("Account/Login")]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -68,6 +69,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/Login
+        [Route("Account/Login")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -98,6 +100,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/VerifyCode
+        [Route("Account/VerifyCode")]
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
@@ -111,6 +114,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/VerifyCode
+        [Route("Account/VerifyCode")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -141,6 +145,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/Register
+        [Route("Account/Register")]
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -154,6 +159,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/Register
+        [Route("Account/Register")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -173,7 +179,7 @@ namespace ASPAssignment2.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "VideoGames");
                 }
                 AddErrors(result);
             }
@@ -184,6 +190,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ConfirmEmail
+        [Route("Account/ConfirmEmail")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -197,6 +204,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ForgotPassword
+        [Route("Account/ForgotPassword")]
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
@@ -205,6 +213,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/ForgotPassword
+        [Route("Account/ForgotPassword")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -233,6 +242,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
+        [Route("Account/ForgotPasswordConfirmation")]
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
@@ -241,6 +251,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ResetPassword
+        [Route("Account/ResetPassword")]
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
@@ -249,6 +260,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/ResetPassword
+        [Route("Account/ResetPassword")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -275,6 +287,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ResetPasswordConfirmation
+        [Route("Account/ResetPasswordConfirmation")]
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
@@ -283,6 +296,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/ExternalLogin
+        [Route("Account/ExternalLogin")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -294,6 +308,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/SendCode
+        [Route("Account/SendCode")]
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
@@ -309,6 +324,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/SendCode
+        [Route("Account/SendCode")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -329,6 +345,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // GET: /Account/ExternalLoginCallback
+        [Route("Account/ExternalLoginCallback")]
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
@@ -359,6 +376,7 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/ExternalLoginConfirmation
+        [Route("Account/ExternalLoginConfirmation")]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -397,16 +415,18 @@ namespace ASPAssignment2.Controllers
 
         //
         // POST: /Account/LogOff
+        [Route("Account/LogOff")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "VideoGames");
         }
 
         //
         // GET: /Account/ExternalLoginFailure
+        [Route("Account/ExternalLoginFailure")]
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
@@ -459,7 +479,7 @@ namespace ASPAssignment2.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "VideoGames");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
