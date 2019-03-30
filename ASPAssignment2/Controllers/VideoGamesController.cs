@@ -24,14 +24,17 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Games
+        [Authorize]
         [Route("VideoGames/VideoGames")]
         public ActionResult VideoGames()
         {
             var videoGames = db.VideoGames.Include(v => v.Genre);
             return View(videoGames.OrderBy(o => o.Name).ToList());
+            //return View(videoGames.OrderBy(o => o.Genre).ThenBy(o => o.Name).ToList());
         }
 
         // GET: VideoGames/Details/5
+        [Authorize]
         [Route("VideoGames/Details")]
         public ActionResult Details(int? id)
         {
@@ -48,6 +51,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Create
+        [Authorize]
         [Route("VideoGames/Create")]
         public ActionResult Create()
         {
@@ -58,6 +62,7 @@ namespace ASPAssignment2.Controllers
         // POST: VideoGames/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [Route("VideoGames/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,6 +80,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Edit/5
+        [Authorize]
         [Route("VideoGames/Edit")]
         public ActionResult Edit(int? id)
         {
@@ -93,6 +99,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Edit/5
         [Route("VideoGames/Edit")]
+        [Authorize]
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -111,6 +118,7 @@ namespace ASPAssignment2.Controllers
 
         // GET: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +135,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

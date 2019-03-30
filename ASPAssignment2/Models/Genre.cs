@@ -9,6 +9,12 @@ namespace ASPAssignment2.Models
 {
     public class Genre
     {
+        /*[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Genre()
+        {
+            VideoGames = new HashSet<VideoGame>();
+        }*/
+
         public virtual int GenreId { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -18,5 +24,8 @@ namespace ASPAssignment2.Models
         [Required(ErrorMessage = "Description is required.")]
         [DataType(DataType.MultilineText)]
         public virtual string Description { get; set; }
+
+        /*[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VideoGame> VideoGames { get; set; }*/
     }
 }

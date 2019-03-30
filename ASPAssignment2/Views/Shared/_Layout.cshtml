@@ -21,8 +21,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Video Games", "VideoGames", "VideoGames")</li>
-                    <li>@Html.ActionLink("Genres", "Index", "Genres")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Video Games", "VideoGames", "VideoGames")</li>
+                        <li>@Html.ActionLink("Genres", "Index", "Genres")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
