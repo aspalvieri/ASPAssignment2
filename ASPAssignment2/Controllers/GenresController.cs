@@ -19,7 +19,7 @@ namespace ASPAssignment2.Controllers
         [Route("Genres/Index")]
         public ActionResult Index()
         {
-            return View(db.Genres.ToList());
+            return View(db.Genres.OrderBy(c => c.Name).ToList());
         }
 
         // GET: Genres/Details/5
