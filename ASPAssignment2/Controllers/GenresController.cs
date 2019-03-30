@@ -18,6 +18,7 @@ namespace ASPAssignment2.Controllers
         // GET: Genres
         [Route("Genres")]
         [Route("Genres/Index")]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Genres.OrderBy(c => c.Name).ToList());

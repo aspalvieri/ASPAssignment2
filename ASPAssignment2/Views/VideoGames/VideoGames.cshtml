@@ -5,10 +5,12 @@
 }
 
 <h2>Video Games</h2>
+@if (Request.IsAuthenticated) {
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table sortable">
     <tr>
         <th>
@@ -52,11 +54,18 @@
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.VideoGameId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.VideoGameId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.VideoGameId })
-        </td>
+        
+        @if (Request.IsAuthenticated)
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.VideoGameId })
+                |
+                @Html.ActionLink("Details", "Details", new { id = item.VideoGameId })
+                |
+                @Html.ActionLink("Delete", "Delete", new { id = item.VideoGameId })
+            </td>
+        }
+        
     </tr>
 }
 

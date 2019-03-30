@@ -18,6 +18,7 @@ namespace ASPAssignment2.Controllers
         [Route("")]
         [Route("VideoGames")]
         [Route("VideoGames/Index")]
+ 
         public ActionResult Index()
         {
             return View();
@@ -26,6 +27,7 @@ namespace ASPAssignment2.Controllers
         // GET: VideoGames/Games
         [Authorize]
         [Route("VideoGames/VideoGames")]
+        [AllowAnonymous]
         public ActionResult VideoGames()
         {
             var videoGames = db.VideoGames.Include(v => v.Genre);
