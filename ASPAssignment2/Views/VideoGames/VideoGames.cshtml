@@ -31,7 +31,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>Actions</th>
+        @if (Request.IsAuthenticated)
+        {
+            <th>Actions</th>
+        }
+
     </tr>
 
 @foreach (var item in Model) {
