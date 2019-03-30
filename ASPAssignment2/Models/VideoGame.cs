@@ -17,6 +17,7 @@ namespace ASPAssignment2.Models
         [Required(ErrorMessage = "Price is required.")]
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:c}")]
+        [Range(0.00,1000)]
         public virtual decimal Price { get; set; }
 
         [Required(ErrorMessage = "Developer is required.")]

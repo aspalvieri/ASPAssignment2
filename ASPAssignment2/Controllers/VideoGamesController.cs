@@ -28,7 +28,7 @@ namespace ASPAssignment2.Controllers
         public ActionResult VideoGames()
         {
             var videoGames = db.VideoGames.Include(v => v.Genre);
-            return View(videoGames.ToList());
+            return View(videoGames.OrderBy(o => o.Name).ToList());
         }
 
         // GET: VideoGames/Details/5
