@@ -25,7 +25,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Games
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("VideoGames/VideoGames")]
         [AllowAnonymous]
         public ActionResult VideoGames()
@@ -53,7 +53,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("VideoGames/Create")]
         public ActionResult Create()
         {
@@ -64,7 +64,7 @@ namespace ASPAssignment2.Controllers
         // POST: VideoGames/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("VideoGames/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -82,7 +82,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("VideoGames/Edit")]
         public ActionResult Edit(int? id)
         {
@@ -101,7 +101,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Edit/5
         [Route("VideoGames/Edit")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -120,7 +120,7 @@ namespace ASPAssignment2.Controllers
 
         // GET: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -137,7 +137,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

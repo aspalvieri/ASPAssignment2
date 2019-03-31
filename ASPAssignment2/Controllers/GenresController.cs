@@ -10,7 +10,7 @@ using ASPAssignment2.Models;
 
 namespace ASPAssignment2.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class GenresController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
