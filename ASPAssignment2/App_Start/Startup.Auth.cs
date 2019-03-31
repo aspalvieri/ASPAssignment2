@@ -61,8 +61,8 @@ namespace ASPAssignment2
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = ConfigurationManager.AppSettings["GoogleClientId"],
-                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"],
+                ClientId = "922276646656-kmm1mopt7036b3tf55ga69mcbfhe3l4v.apps.googleusercontent.com",
+                ClientSecret = "FNB3xl92r5pUdL_Dm6kZhWYD"
             });
         }
     }
