@@ -58,17 +58,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        
-        @if (Request.IsAuthenticated)
-        {
-            <td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.VideoGameId })
+            @if (Request.IsAuthenticated)
+            {
+                <text>|</text>
                 @Html.ActionLink("Edit", "Edit", new { id = item.VideoGameId })
-                |
-                @Html.ActionLink("Details", "Details", new { id = item.VideoGameId })
-                |
+                <text>|</text>
                 @Html.ActionLink("Delete", "Delete", new { id = item.VideoGameId })
-            </td>
-        }
+            }
+        </td>
         
     </tr>
 }
