@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - The Game Store</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 
 </head>
 <body>
@@ -44,5 +45,7 @@
     @RenderSection("scripts", required: false)
     <!-- sortable table from: https://www.kryogenix.org/code/browser/sorttable/-->
     <script src="~/Scripts/sorttable.js"></script>
+
+    <script src="~/Scripts/app/gamescripts.js"></script>
 </body>
 </html>
