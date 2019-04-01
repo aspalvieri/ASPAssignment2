@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPAssignment2.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ASPAssignment2.Controllers
 {
@@ -59,7 +61,18 @@ namespace ASPAssignment2.Controllers
         [Route("VideoGames/AddReview")]
         public string AddReview(string data)
         {
-            
+            JArray a = JArray.Parse(data);
+            Reviews review = new Reviews();
+
+            foreach (JObject o in a.Children<JObject>())
+            {
+                foreach (JProperty p in o.Properties())
+                {
+                    string name = p.Name;
+                    string value = (string)p.Value;
+                    Console.WriteLine(name + " -- " + value);
+                }
+            }
             return User.Identity.Name;
         }
 
