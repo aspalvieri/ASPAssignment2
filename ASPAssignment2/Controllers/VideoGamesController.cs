@@ -49,7 +49,18 @@ namespace ASPAssignment2.Controllers
             {
                 return HttpNotFound();
             }
+            List<Reviews> reviews = db.Reviews.Include(r => r.VideoGame).ToList();
+            
             return View(videoGame);
+        }
+
+        [Authorize]
+        [System.Web.Services.WebMethod]
+        [Route("VideoGames/AddReview")]
+        public string AddReview(string data)
+        {
+            
+            return User.Identity.Name;
         }
 
         // GET: VideoGames/Create

@@ -32,5 +32,6 @@ namespace ASPAssignment2.Models
 
         public virtual Genre Genre { get; set; }
         public List<Reviews> Reviews { get; set; }
+        public Reviews newReview { get; set; }
     }
 }

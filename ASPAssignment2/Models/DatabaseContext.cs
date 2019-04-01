@@ -22,5 +22,7 @@ namespace ASPAssignment2.Models
         public System.Data.Entity.DbSet<ASPAssignment2.Models.VideoGame> VideoGames { get; set; }
 
         public System.Data.Entity.DbSet<ASPAssignment2.Models.Genre> Genres { get; set; }
+
+        public System.Data.Entity.DbSet<ASPAssignment2.Models.Reviews> Reviews { get; set; }
     }
 }
