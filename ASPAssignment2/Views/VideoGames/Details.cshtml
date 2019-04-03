@@ -72,7 +72,7 @@
     <div class="form-group">
         <input type="hidden" id="ajaxVideoGameId" value="@Model.VideoGameId" />
 
-        <input type="hidden" id="ajaxReviewId" value="@Model.Reviews.Count" />
+        <input type="hidden" id="ajaxReviewId" value="@((Model.Reviews != null && Model.Reviews.Count > 0) ? Model.Reviews.Count : 0)" />
 
         <label for="subject">Subject:</label>
         <input type="text" id="ajaxSubject" name="subject" pattern=".{1}" value="" />
@@ -80,15 +80,38 @@
         <label for="stars">Stars:</label>
         <input type="number" id="ajaxStars" name="stars" min="1" max="5" value="" />
 
-        <label for="review">review:</label>
+        <label for="review">Review:</label>
         <input type="text" id="ajaxReview" name="review" pattern=".{1}" value="" />
 
-        <button id="ajaxRequest">Send</button>
+        <button id="ajaxRequest">Post Review</button>
     </div>
+    <template id="template-form">
+        <tr>
+            <td id="template-name"></td>
+            <td id="template-subject"></td>
+            <td id="template-review"></td>
+            <td id="template-stars"></td>
+            <td><a href="" id="template-delete">Delete</a></td>
+        </tr>
+    </template>
     <script>
         //Ajax request
         function OnSuccess(response) {
-            alert(response);
+            if (response == "False") {
+                alert("Invalid form entries!");
+            }
+            else {
+                let table = document.querySelector("#reviewBody");
+                let template = document.querySelector("#template-form");
+                let temp = template.content.cloneNode(true);
+                let data = JSON.parse(response);
+                temp.querySelector("#template-name").textContent = data["Name"];
+                temp.querySelector("#template-subject").textContent = data["Subject"];
+                temp.querySelector("#template-review").textContent = data["Review"];
+                temp.querySelector("#template-stars").textContent = data["Stars"];
+                temp.querySelector("#template-delete").href = "/VideoGames/DeleteReview?id="+data["VideoGameId"]+"&reviewid="+data["ReviewsId"];
+                table.appendChild(temp);
+            }
         }
         $("#ajaxRequest").click(function () {
             let videogameid = document.querySelector("#ajaxVideoGameId").value;
@@ -97,14 +120,27 @@
             let stars = document.querySelector("#ajaxStars").value;
             let review = document.querySelector("#ajaxReview").value;
 
-            $.ajax({
-                type: "POST",
-                url: "AddReview",
-                //data: "{}",
-                //contentType: "application/json; charset=utf-8",
-                //dataType: "json",
-                success: OnSuccess
-            });
+            //Greasy form validation
+            if (videogameid == null || reviewid == null || subject == null || stars == null || review == null || isNaN(stars)) {
+                alert("Invalid form entries!");
+            }
+            else {
+                $.ajax({
+                    traditional: true,
+                    type: "POST",
+                    url: "AddReview",
+                    cache: false,
+                    data: {
+                        videogameid: videogameid,
+                        reviewid: reviewid,
+                        subject: subject,
+                        stars: stars,
+                        review: review
+                    },
+                    //contentType: "application/json",
+                    success: OnSuccess
+                });
+            }
         });
     </script>
 }
@@ -123,6 +159,12 @@
         <th>
             Stars
         </th>
+        @if (Request.IsAuthenticated)
+        {
+            <th>
+
+            </th>
+        }
     </tr>
     <tbody id="reviewBody">
         <!-- If the current video game has reviews, and there are atleast 1 review available... -->
@@ -144,6 +186,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Stars)
                     </td>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteReview", new { id = Model.VideoGameId, reviewid = item.ReviewsId })
+                        </td>
+                    }
                 </tr>
             }
         }

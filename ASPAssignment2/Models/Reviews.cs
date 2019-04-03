@@ -26,5 +26,16 @@ namespace ASPAssignment2.Models
         public virtual int Stars { get; set; }
 
         public virtual VideoGame VideoGame { get; set; }
+
+        public bool CheckModelState()
+        {
+            //Check for blanks
+            if (ReviewsId.ToString() == "" || VideoGameId.ToString() == "" || Name == "" | Subject == "" || Review == "" || Stars.ToString() == "")
+                return false;
+            //Check for invalid entries
+            if (ReviewsId < 0 || VideoGameId < 0 || Stars <= 0 || Stars > 5)
+                return false;
+            return true;
+        }
     }
 }
