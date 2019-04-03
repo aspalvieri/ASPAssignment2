@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using ASPAssignment2.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -39,6 +40,7 @@ namespace ASPAssignment2.Controllers
 
         // GET: VideoGames/Details/5
         [Authorize]
+        [AllowAnonymous]
         [Route("VideoGames/Details")]
         public ActionResult Details(int? id)
         {
@@ -51,29 +53,65 @@ namespace ASPAssignment2.Controllers
             {
                 return HttpNotFound();
             }
-            List<Reviews> reviews = db.Reviews.Include(r => r.VideoGame).ToList();
-            
+            List<Reviews> reviewList = db.Reviews.ToList();
+            List<Reviews> reviews = new List<Reviews>();
+            foreach (Reviews review in reviewList)
+            {
+                if (review.VideoGameId == videoGame.VideoGameId)
+                {
+                    reviews.Add(review);
+                }
+            }
+            videoGame.Reviews = reviews;
             return View(videoGame);
         }
 
         [Authorize]
         [System.Web.Services.WebMethod]
         [Route("VideoGames/AddReview")]
-        public string AddReview(string data)
+        public string AddReview(int videogameid, int reviewid, string subject, int stars, string review)
         {
-            JArray a = JArray.Parse(data);
-            Reviews review = new Reviews();
-
-            foreach (JObject o in a.Children<JObject>())
+            Reviews rev = new Reviews
             {
-                foreach (JProperty p in o.Properties())
-                {
-                    string name = p.Name;
-                    string value = (string)p.Value;
-                    Console.WriteLine(name + " -- " + value);
-                }
+                VideoGameId = videogameid,
+                ReviewsId = reviewid,
+                Name = User.Identity.Name,
+                Subject = subject,
+                Stars = stars,
+                Review = review
+            };
+            if (rev.CheckModelState())
+            {
+                db.Reviews.Add(rev);
+                db.SaveChanges();
+                string data = new JavaScriptSerializer().Serialize(rev);
+                return data;
             }
-            return User.Identity.Name;
+            return "False";
+        }
+
+        [Authorize]
+        [Route("VideoGames/DeleteReview")]
+        public ActionResult DeleteReview(int? id, int? reviewid)
+        {
+            //Ensure user is logged in before deleting a review
+            if (!Request.IsAuthenticated)
+            {
+                return Redirect("Index");
+            }
+            //Ensure 2 data types were given
+            if (id == null || reviewid == null)
+            {
+                return Redirect("Index");
+            }
+            Reviews review = db.Reviews.Find(reviewid);
+            if (review == null)
+            {
+                return Redirect("Index");
+            }
+            db.Reviews.Remove(review);
+            db.SaveChanges();
+            return Redirect("Details?id=" + id);
         }
 
         // GET: VideoGames/Create

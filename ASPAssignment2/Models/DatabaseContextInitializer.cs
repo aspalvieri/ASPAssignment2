@@ -24,8 +24,7 @@ namespace ASPAssignment2.Models
                 Developer = "UK",
                 Publisher = "steam",
                 Description = "FPS Game",
-                Genre = fps,
-                Reviews = new List<Reviews>()
+                Genre = fps
             };
             context.VideoGames.Add(csgo);
             Reviews review = new Reviews
@@ -34,9 +33,10 @@ namespace ASPAssignment2.Models
                 Subject = "csgo",
                 Review = "I can't play",
                 Stars = 4,
-                VideoGame = csgo
+                VideoGame = csgo,
+                VideoGameId = 1
             };
-            
+            context.Reviews.Add(review);
 
             base.Seed(context);
 
