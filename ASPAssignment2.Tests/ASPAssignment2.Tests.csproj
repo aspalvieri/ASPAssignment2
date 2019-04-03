@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\GenresControllerTest.cs" />
-    <Compile Include="Controllers\GenreTest.cs" />
+    <Compile Include="Controllers\VideoGamsControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
