@@ -15,8 +15,23 @@ namespace ASPAssignment2.Controllers
 {
     public class VideoGamesController : Controller
     {
-        private DatabaseContext db = new DatabaseContext();
+        //private DatabaseContext db = new DatabaseContext();
+        //connects to database
+        IVideoGamesMock db;
 
+        public VideoGamesController() {
+            //nothing passed to consturctor, connect db
+            this.db = new EFVideoGames();
+        }
+
+        //if a mock object passed, no db
+        public VideoGamesController(IVideoGamesMock videoGamesMock)
+        {
+            this.db = videoGamesMock;
+        }
+
+        
+        
         // GET: VideoGames
         [Route("")]
         [Route("VideoGames")]
@@ -24,20 +39,21 @@ namespace ASPAssignment2.Controllers
  
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
+        
         // GET: VideoGames/Games
         [Authorize(Roles = "Admin")]
         [Route("VideoGames/VideoGames")]
         [AllowAnonymous]
         public ActionResult VideoGames()
         {
-            var videoGames = db.VideoGames.Include(v => v.Genre);
+            List<VideoGame> videoGames = db.videoGames.ToList();
             return View(videoGames.OrderBy(o => o.Name).ToList());
             //return View(videoGames.OrderBy(o => o.Genre).ThenBy(o => o.Name).ToList());
         }
-
+        /*
         // GET: VideoGames/Details/5
         [Authorize]
         [AllowAnonymous]
@@ -217,6 +233,6 @@ namespace ASPAssignment2.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

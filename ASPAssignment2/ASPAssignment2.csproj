@@ -211,8 +211,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseContextInitializer.cs" />
+    <Compile Include="Models\EFVideoGames.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IVideoGamesMock.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Reviews.cs" />
     <Compile Include="Models\VideoGame.cs" />

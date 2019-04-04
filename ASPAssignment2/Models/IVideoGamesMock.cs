@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ASPAssignment2.Models
+{
+    public interface IVideoGamesMock
+    {
+        IQueryable<VideoGame> videoGames { get;  }
+        IQueryable<Reviews> Reviews { get; }
+        
+        VideoGame Save(VideoGame videoGame);
+        void Delete(VideoGame videoGame);
+
+
+    }
+}
