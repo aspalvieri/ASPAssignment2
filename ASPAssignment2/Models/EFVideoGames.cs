@@ -20,6 +20,17 @@ namespace ASPAssignment2.Models
             db.SaveChanges();
         }
 
+        public void Delete(Reviews review)
+        {
+            db.Reviews.Remove(review);
+            db.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
+
         public VideoGame Save(VideoGame videoGame)
         {
             if (videoGame.VideoGameId == 0)
@@ -34,5 +45,15 @@ namespace ASPAssignment2.Models
             return videoGame;
         }
 
+        public void Save(Reviews rev)
+        {
+            if (rev.ReviewsId == 0)
+            {
+                db.Reviews.Add(rev);
+            }
+            else {
+                db.Entry(rev).State = System.Data.Entity.EntityState.Modified;
+            }
+        }
     }
 }

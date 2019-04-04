@@ -13,7 +13,8 @@ namespace ASPAssignment2.Models
         
         VideoGame Save(VideoGame videoGame);
         void Delete(VideoGame videoGame);
-
-
+        void Delete(Reviews review);
+        void Save(Reviews rev);
+        void Dispose();
     }
 }
