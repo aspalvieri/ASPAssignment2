@@ -14,13 +14,13 @@ namespace ASPAssignment2.Models
         {
             db.Genres.Remove(genre);
             db.SaveChanges();
-        }
+        }*/
+
 
         public void Dispose()
         {
             db.Dispose();
         }
-
         public Genre Save(Genre genre)
         {
             if (genre.GenreId == 0)
@@ -34,7 +34,7 @@ namespace ASPAssignment2.Models
 
             db.SaveChanges();
             return genre;
-        }*/
+        }
         private DatabaseContext db = new DatabaseContext();
         public void CreateGenre(Genre a)
         {

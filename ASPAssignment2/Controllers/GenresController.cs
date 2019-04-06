@@ -14,7 +14,7 @@ namespace ASPAssignment2.Controllers
     public class GenresController : Controller
     {
 
-        private DatabaseContext db = new DatabaseContext();
+        //private DatabaseContext db = new DatabaseContext();
         private IGenreMock bl;
         public GenresController(IGenreMock bl) {
             this.bl = bl;
@@ -34,24 +34,26 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.Genres.OrderBy(c => c.Name).ToList());
+            //return View(db.Genres.OrderBy(c => c.Name).ToList());
+            return View("Index");
         }
 
         // GET: Genres/Details/5
         [Route("Genres/Details")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
             //Genre genre = db.Genres.SingleOrDefault(c => c.GenreId == id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Details",genre);
         }
         
         // GET: Genres/Create
@@ -71,8 +73,9 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
+                //db.Genres.Add(genre);
+                //db.SaveChanges();
+                bl.CreateGenre(genre);
                 return RedirectToAction("Index");
             }
 
@@ -81,13 +84,14 @@ namespace ASPAssignment2.Controllers
 
         // GET: Genres/Edit/5
         [Route("Genres/Edit")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -105,8 +109,9 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(genre).State = EntityState.Modified;
+                //db.SaveChanges();
+                bl.Save(genre);
                 return RedirectToAction("Index");
             }
             return View(genre);
@@ -114,13 +119,14 @@ namespace ASPAssignment2.Controllers
 
         // GET: Genres/Delete/5
         [Route("Genres/Delete")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -134,9 +140,11 @@ namespace ASPAssignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
+            //db.Genres.Remove(genre);
+            //db.SaveChanges();
+            bl.DeleteGenre(genre);
             return RedirectToAction("Index");
         }
 
@@ -144,7 +152,9 @@ namespace ASPAssignment2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                bl.Dispose();
+                
             }
             base.Dispose(disposing);
         }

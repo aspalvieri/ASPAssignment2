@@ -8,5 +8,7 @@ namespace ASPAssignment2.Models
         void DeleteGenre(Genre genre);
         Genre GetGenre(int id);
         IQueryable<Genre> GetGenres();
+        void Dispose();
+        Genre Save(Genre genre);
     }
 }

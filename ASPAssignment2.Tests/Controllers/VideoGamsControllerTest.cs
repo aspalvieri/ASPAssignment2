@@ -14,7 +14,7 @@ namespace ASPAssignment2.Tests.Controllers
     [TestClass]
     public class VideoGamsControllerTest
     {
-        VideoGamesController controller;
+        /*VideoGamesController controller;
         List<VideoGame> videogames;
         Mock<IVideoGamesMock> mock;
 
@@ -216,6 +216,6 @@ namespace ASPAssignment2.Tests.Controllers
             // Assert
             Assert.AreEqual("Create", result.ViewName);
 
-        }
+        }*/
     }
 }

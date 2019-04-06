@@ -7,13 +7,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ASPAssignment2;
 using ASPAssignment2.Controllers;
 using ASPAssignment2.Models;
+using ASPAssignment2.Tests.Fakes;
+using System.Net;
+using System.Web.Http.Results;
 
 namespace ASPAssignment2.Tests.Controllers
 {
     [TestClass]
     public class GenresControllerTest
     {
-        GenresController controller;
+        /*GenresController controller;
         private DatabaseContext context = new DatabaseContext();
         [TestInitialize]
         public void TestInitialize(){
@@ -24,16 +27,33 @@ namespace ASPAssignment2.Tests.Controllers
             context.Genres.Add(fps);
             context.Genres.Add(moba);
             
-        }
+        }*/
+
 
 
         [TestMethod]
         public void IndexTest() {
             //Arrange
-            //Instance decleared in TestInitialize()
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
             //Act
             ViewResult result = controller.Index() as ViewResult;
             //Assert
+            Assert.AreEqual(result.ViewName, "Index");
+            
+        }
+
+        [TestMethod]
+        public void DetailValidId()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Details(1) as ViewResult;
+
+            // Assert
             Assert.IsNotNull(result);
         }
     }      
