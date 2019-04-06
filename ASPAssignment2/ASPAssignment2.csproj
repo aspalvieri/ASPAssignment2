@@ -218,7 +218,7 @@
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseContextInitializer.cs" />
     <Compile Include="Models\GenreLayer.cs" />
-    <Compile Include="Models\EFReviews.cs" />
+    <Compile Include="Models\ReviewsLayer.cs" />
     <Compile Include="Models\VideoGamesLayer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -298,6 +298,7 @@
     <Content Include="Views\Genres\Details.cshtml" />
     <Content Include="Views\Genres\Edit.cshtml" />
     <Content Include="Views\Genres\Index.cshtml" />
+    <Content Include="Views\Shared\VideoGames\Index.cshtml" />
     <Content Include="Views\VideoGames\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
