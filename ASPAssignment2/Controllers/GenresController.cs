@@ -60,7 +60,7 @@ namespace ASPAssignment2.Controllers
         [Route("Genres/Create")]
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Genres/Create
@@ -94,9 +94,9 @@ namespace ASPAssignment2.Controllers
             Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Edit",genre);
         }
 
         // POST: Genres/Edit/5
@@ -114,7 +114,7 @@ namespace ASPAssignment2.Controllers
                 bl.Save(genre);
                 return RedirectToAction("Index");
             }
-            return View(genre);
+            return View("Edit",genre);
         }
 
         // GET: Genres/Delete/5
@@ -129,9 +129,9 @@ namespace ASPAssignment2.Controllers
             Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Delete",genre);
         }
 
         // POST: Genres/Delete/5
