@@ -16,6 +16,12 @@ namespace ASPAssignment2.Controllers
     public class VideoGamesController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
+        private IVideoGamesMock @object;
+
+        public VideoGamesController(IVideoGamesMock @object)
+        {
+            this.@object = @object;
+        }
 
         // GET: VideoGames
         [Route("")]
