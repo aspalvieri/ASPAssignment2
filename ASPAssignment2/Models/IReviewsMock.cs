@@ -18,6 +18,7 @@ namespace ASPAssignment2.Models
         */
         void CreateReviews(Reviews a);
         void DeleteReviews(Reviews a);
+        void UpdateReviews(int id, Reviews a);
         Reviews GetReviews(int id);
         IQueryable<Reviews> GetReviews();
     }

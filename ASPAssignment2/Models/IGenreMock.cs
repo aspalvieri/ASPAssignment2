@@ -6,6 +6,7 @@ namespace ASPAssignment2.Models
     {
         void CreateGenre(Genre a);
         void DeleteGenre(Genre genre);
+        void UpdateGenre(int id, Genre genre);
         Genre GetGenre(int id);
         IQueryable<Genre> GetGenres();
         void Dispose();

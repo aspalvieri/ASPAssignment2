@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -58,6 +59,12 @@ namespace ASPAssignment2.Models
         public IQueryable<Reviews> GetReviews()
         {
             return db.Reviews;
+        }
+
+        public void UpdateReviews(int id, Reviews a)
+        {
+            db.Entry(a).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

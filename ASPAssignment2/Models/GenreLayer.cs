@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -58,6 +59,12 @@ namespace ASPAssignment2.Models
         public IQueryable<Genre> GetGenres()
         {
             return db.Genres;
+        }
+
+        public void UpdateGenre(int id, Genre genre)
+        {
+            db.Entry(genre).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
