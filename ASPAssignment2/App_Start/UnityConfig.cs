@@ -1,3 +1,4 @@
+using ASPAssignment2.Controllers;
 using ASPAssignment2.Models;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Web.Http.Dependencies;
 using System.Web.Mvc;
 using Unity;
 using Unity.Exceptions;
+using Unity.Injection;
 using Unity.Mvc5;
 
 namespace ASPAssignment2
@@ -42,6 +44,8 @@ namespace ASPAssignment2
         {
             container.RegisterType<IGenreMock, GenreLayer>();
             container.RegisterType<IVideoGamesMock, VideoGamesLayer>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
         }
 
         public static void RegisterWebApiComponents(HttpConfiguration config)
