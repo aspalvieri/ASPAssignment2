@@ -10,13 +10,15 @@ using ASPAssignment2.Models;
 
 namespace ASPAssignment2.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]//(Roles = "Admin")]
     public class GenresController : Controller
     {
 
-        //private DatabaseContext db = new DatabaseContext();
+        private DatabaseContext db = new DatabaseContext();
         private IGenreMock bl;
-        public GenresController(IGenreMock bl) {
+        public bool testCase = false;
+        public GenresController(IGenreMock bl)
+        {
             this.bl = bl;
         }
         /*IGenreMock db;
@@ -34,8 +36,10 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            //return View(db.Genres.OrderBy(c => c.Name).ToList());
-            return View("Index");
+            if (!testCase)
+                return View(db.Genres.OrderBy(c => c.Name).ToList());
+            else
+                return View("Index");
         }
 
         // GET: Genres/Details/5
@@ -46,8 +50,11 @@ namespace ASPAssignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }*/
-            //Genre genre = db.Genres.Find(id);
-            Genre genre = bl.GetGenre(id);
+            Genre genre;
+            if (!testCase)
+                genre = db.Genres.Find(id);
+            else
+                genre = bl.GetGenre(id);
             //Genre genre = db.Genres.SingleOrDefault(c => c.GenreId == id);
             if (genre == null)
             {

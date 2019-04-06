@@ -28,7 +28,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Games
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         [Route("VideoGames/VideoGames")]
         [AllowAnonymous]
         public ActionResult VideoGames()
@@ -97,17 +97,17 @@ namespace ASPAssignment2.Controllers
             //Ensure user is logged in before deleting a review
             if (!Request.IsAuthenticated)
             {
-                return Redirect("Index");
+                return Redirect("VideoGames");
             }
             //Ensure 2 data types were given
             if (id == null || reviewid == null)
             {
-                return Redirect("Index");
+                return Redirect("VideoGames");
             }
             Reviews review = db.Reviews.Find(reviewid);
             if (review == null)
             {
-                return Redirect("Index");
+                return Redirect("VideoGames");
             }
             db.Reviews.Remove(review);
             db.SaveChanges();
@@ -115,7 +115,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         [Route("VideoGames/Create")]
         public ActionResult Create()
         {
@@ -126,7 +126,7 @@ namespace ASPAssignment2.Controllers
         // POST: VideoGames/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         [Route("VideoGames/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -136,7 +136,7 @@ namespace ASPAssignment2.Controllers
             {
                 db.VideoGames.Add(videoGame);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("VideoGames");
             }
 
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
@@ -144,7 +144,7 @@ namespace ASPAssignment2.Controllers
         }
 
         // GET: VideoGames/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         [Route("VideoGames/Edit")]
         public ActionResult Edit(int? id)
         {
@@ -163,7 +163,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Edit/5
         [Route("VideoGames/Edit")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -174,7 +174,7 @@ namespace ASPAssignment2.Controllers
             {
                 db.Entry(videoGame).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("VideoGames");
             }
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
             return View(videoGame);
@@ -182,7 +182,7 @@ namespace ASPAssignment2.Controllers
 
         // GET: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -199,7 +199,7 @@ namespace ASPAssignment2.Controllers
 
         // POST: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]//(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -207,7 +207,7 @@ namespace ASPAssignment2.Controllers
             VideoGame videoGame = db.VideoGames.Find(id);
             db.VideoGames.Remove(videoGame);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("VideoGames");
         }
 
         protected override void Dispose(bool disposing)

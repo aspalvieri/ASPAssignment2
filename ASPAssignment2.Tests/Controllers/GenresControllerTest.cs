@@ -36,6 +36,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //Act
             ViewResult result = controller.Index() as ViewResult;
             //Assert
@@ -49,6 +50,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Details(1) as ViewResult;
@@ -63,6 +65,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Details(300) as ViewResult;
@@ -77,6 +80,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Create() as ViewResult;
@@ -92,6 +96,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Edit(200) as ViewResult;
@@ -106,6 +111,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Edit(1) as ViewResult;
@@ -120,6 +126,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             Genre fps = new Genre { Name = "FPS", Description = "Men's romance" };
@@ -135,6 +142,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Delete(300) as ViewResult;
@@ -149,6 +157,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Delete(1) as ViewResult;
@@ -163,6 +172,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.DeleteConfirmed(300) as ViewResult;
@@ -176,6 +186,7 @@ namespace ASPAssignment2.Tests.Controllers
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             System.Web.Mvc.RedirectToRouteResult actual = (System.Web.Mvc.RedirectToRouteResult)controller.DeleteConfirmed(1);
