@@ -13,8 +13,21 @@ namespace ASPAssignment2.Controllers
     [Authorize(Roles = "Admin")]
     public class GenresController : Controller
     {
-        private DatabaseContext db = new DatabaseContext();
 
+        private DatabaseContext db = new DatabaseContext();
+        private IGenreMock bl;
+        public GenresController(IGenreMock bl) {
+            this.bl = bl;
+        }
+        /*IGenreMock db;
+
+        public GenresController() {
+            this.db = new EFGenre();
+        }
+
+        public GenresController(IGenreMock genreMock) {
+            this.db = genreMock;
+        }*/
         // GET: Genres
         [Route("Genres")]
         [Route("Genres/Index")]
@@ -33,13 +46,14 @@ namespace ASPAssignment2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Genre genre = db.Genres.Find(id);
+            //Genre genre = db.Genres.SingleOrDefault(c => c.GenreId == id);
             if (genre == null)
             {
                 return HttpNotFound();
             }
             return View(genre);
         }
-
+        
         // GET: Genres/Create
         [Route("Genres/Create")]
         public ActionResult Create()

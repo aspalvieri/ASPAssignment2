@@ -15,45 +15,29 @@ namespace ASPAssignment2.Controllers
 {
     public class VideoGamesController : Controller
     {
-        //private DatabaseContext db = new DatabaseContext();
-        //connects to database
-        IVideoGamesMock db;
+        private DatabaseContext db = new DatabaseContext();
 
-        public VideoGamesController() {
-            //nothing passed to consturctor, connect db
-            this.db = new EFVideoGames();
-        }
-
-        //if a mock object passed, no db
-        public VideoGamesController(IVideoGamesMock videoGamesMock)
-        {
-            this.db = videoGamesMock;
-        }
-
-        
-        
         // GET: VideoGames
         [Route("")]
         [Route("VideoGames")]
         [Route("VideoGames/Index")]
- 
+
         public ActionResult Index()
         {
-            return View("Index");
+            return View();
         }
 
-        
         // GET: VideoGames/Games
         [Authorize(Roles = "Admin")]
         [Route("VideoGames/VideoGames")]
         [AllowAnonymous]
         public ActionResult VideoGames()
         {
-            List<VideoGame> videoGames = db.videoGames.ToList();
-            return View("VideoGames",videoGames.OrderBy(o => o.Name).ToList());
+            var videoGames = db.VideoGames.Include(v => v.Genre);
+            return View(videoGames.OrderBy(o => o.Name).ToList());
             //return View(videoGames.OrderBy(o => o.Genre).ThenBy(o => o.Name).ToList());
         }
-        
+
         // GET: VideoGames/Details/5
         [Authorize]
         [AllowAnonymous]
@@ -62,12 +46,12 @@ namespace ASPAssignment2.Controllers
         {
             if (id == null)
             {
-                return View("Error");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VideoGame videoGame = db.videoGames.SingleOrDefault(c => c.VideoGameId == id);
+            VideoGame videoGame = db.VideoGames.Find(id);
             if (videoGame == null)
             {
-                return View("Error");
+                return HttpNotFound();
             }
             List<Reviews> reviewList = db.Reviews.ToList();
             List<Reviews> reviews = new List<Reviews>();
@@ -79,9 +63,9 @@ namespace ASPAssignment2.Controllers
                 }
             }
             videoGame.Reviews = reviews;
-            return View("Details",videoGame);
+            return View(videoGame);
         }
-        
+
         [Authorize]
         [System.Web.Services.WebMethod]
         [Route("VideoGames/AddReview")]
@@ -98,9 +82,8 @@ namespace ASPAssignment2.Controllers
             };
             if (rev.CheckModelState())
             {
-                //db.Reviews.Add(rev);
-                //db.SaveChanges();
-                db.Save(rev);
+                db.Reviews.Add(rev);
+                db.SaveChanges();
                 string data = new JavaScriptSerializer().Serialize(rev);
                 return data;
             }
@@ -121,14 +104,13 @@ namespace ASPAssignment2.Controllers
             {
                 return Redirect("Index");
             }
-            Reviews review = db.Reviews.SingleOrDefault(c => c.ReviewsId == id);
+            Reviews review = db.Reviews.Find(reviewid);
             if (review == null)
             {
                 return Redirect("Index");
             }
-            //db.Reviews.Remove(review);
-            //db.SaveChanges();
-            db.Delete(review);
+            db.Reviews.Remove(review);
+            db.SaveChanges();
             return Redirect("Details?id=" + id);
         }
 
@@ -137,8 +119,8 @@ namespace ASPAssignment2.Controllers
         [Route("VideoGames/Create")]
         public ActionResult Create()
         {
-            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
-            return View("Create");
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
+            return View();
         }
 
         // POST: VideoGames/Create
@@ -152,14 +134,13 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.VideoGames.Add(videoGame);
-                //db.SaveChanges();
-                db.Save(videoGame);
+                db.VideoGames.Add(videoGame);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View("Create",videoGame);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
+            return View(videoGame);
         }
 
         // GET: VideoGames/Edit/5
@@ -171,14 +152,13 @@ namespace ASPAssignment2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //VideoGame videoGame = db.VideoGames.Find(id);
-            VideoGame videoGame = db.videoGames.SingleOrDefault(c => c.VideoGameId == id);
+            VideoGame videoGame = db.VideoGames.Find(id);
             if (videoGame == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View("Edit",videoGame);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
+            return View(videoGame);
         }
 
         // POST: VideoGames/Edit/5
@@ -192,13 +172,12 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(videoGame).State = EntityState.Modified;
-                //db.SaveChanges();
-                db.Save(videoGame);
+                db.Entry(videoGame).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View("Edit",videoGame);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
+            return View(videoGame);
         }
 
         // GET: VideoGames/Delete/5
@@ -208,16 +187,14 @@ namespace ASPAssignment2.Controllers
         {
             if (id == null)
             {
-                return View("Error");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //VideoGame videoGame = db.VideoGames.Find(id);
-            VideoGame videoGame = db.videoGames.SingleOrDefault(c => c.VideoGameId == id);
+            VideoGame videoGame = db.VideoGames.Find(id);
             if (videoGame == null)
             {
-                //return HttpNotFound();
-                return View("Error");
+                return HttpNotFound();
             }
-            return View("Delete",videoGame);
+            return View(videoGame);
         }
 
         // POST: VideoGames/Delete/5
@@ -227,11 +204,9 @@ namespace ASPAssignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //VideoGame videoGame = db.VideoGames.Find(id);
-            VideoGame videoGame = db.videoGames.SingleOrDefault(c => c.VideoGameId == id);
-            //db.VideoGames.Remove(videoGame);
-            //db.SaveChanges();
-            db.Save(videoGame);
+            VideoGame videoGame = db.VideoGames.Find(id);
+            db.VideoGames.Remove(videoGame);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
-    public class EFVideoGames : IVideoGamesMock
+    public class VideoGamesLayer : IVideoGamesMock
     {
         //db connection here
         private DatabaseContext db = new DatabaseContext();
