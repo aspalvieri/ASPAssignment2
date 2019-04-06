@@ -10,13 +10,15 @@ using ASPAssignment2.Models;
 
 namespace ASPAssignment2.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]//(Roles = "Admin")]
     public class GenresController : Controller
     {
 
         private DatabaseContext db = new DatabaseContext();
         private IGenreMock bl;
-        public GenresController(IGenreMock bl) {
+        public bool testCase = false;
+        public GenresController(IGenreMock bl)
+        {
             this.bl = bl;
         }
         /*IGenreMock db;
@@ -34,31 +36,38 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.Genres.OrderBy(c => c.Name).ToList());
+            if (!testCase)
+                return View(db.Genres.OrderBy(c => c.Name).ToList());
+            else
+                return View("Index");
         }
 
         // GET: Genres/Details/5
         [Route("Genres/Details")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            Genre genre;
+            if (!testCase)
+                genre = db.Genres.Find(id);
+            else
+                genre = bl.GetGenre(id);
             //Genre genre = db.Genres.SingleOrDefault(c => c.GenreId == id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Details",genre);
         }
         
         // GET: Genres/Create
         [Route("Genres/Create")]
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Genres/Create
@@ -71,8 +80,9 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
+                //db.Genres.Add(genre);
+                //db.SaveChanges();
+                bl.CreateGenre(genre);
                 return RedirectToAction("Index");
             }
 
@@ -81,18 +91,19 @@ namespace ASPAssignment2.Controllers
 
         // GET: Genres/Edit/5
         [Route("Genres/Edit")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Edit",genre);
         }
 
         // POST: Genres/Edit/5
@@ -105,27 +116,29 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(genre).State = EntityState.Modified;
+                //db.SaveChanges();
+                bl.Save(genre);
                 return RedirectToAction("Index");
             }
-            return View(genre);
+            return View("Edit",genre);
         }
 
         // GET: Genres/Delete/5
         [Route("Genres/Delete")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
+            }*/
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
             if (genre == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(genre);
+            return View("Delete",genre);
         }
 
         // POST: Genres/Delete/5
@@ -134,9 +147,11 @@ namespace ASPAssignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
+            //Genre genre = db.Genres.Find(id);
+            Genre genre = bl.GetGenre(id);
+            //db.Genres.Remove(genre);
+            //db.SaveChanges();
+            bl.DeleteGenre(genre);
             return RedirectToAction("Index");
         }
 
@@ -144,7 +159,9 @@ namespace ASPAssignment2.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                bl.Dispose();
+                
             }
             base.Dispose(disposing);
         }

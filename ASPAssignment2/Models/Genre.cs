@@ -25,7 +25,7 @@ namespace ASPAssignment2.Models
         [DataType(DataType.MultilineText)]
         public virtual string Description { get; set; }
 
-        /*[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VideoGame> VideoGames { get; set; }*/
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VideoGame> VideoGames { get; set; }
     }
 }

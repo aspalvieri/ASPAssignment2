@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace ASPAssignment2.Models
 {
-    public class EFReviews : IReviewsMock
+    public class ReviewsLayer : IReviewsMock
     {
+        /*
         private DatabaseContext db = new DatabaseContext();
         public IQueryable<Reviews> Reviews { get { return db.Reviews; } }
 
@@ -35,6 +37,34 @@ namespace ASPAssignment2.Models
 
             db.SaveChanges();
             return reviews;
+        }*/
+        private DatabaseContext db = new DatabaseContext();
+        public void CreateReviews(Reviews a)
+        {
+            db.Reviews.Add(a);
+            db.SaveChanges();
+        }
+
+        public void DeleteReviews(Reviews a)
+        {
+            db.Reviews.Remove(a);
+            db.SaveChanges();
+        }
+
+        public Reviews GetReviews(int id)
+        {
+            return db.Reviews.Find(id);
+        }
+
+        public IQueryable<Reviews> GetReviews()
+        {
+            return db.Reviews;
+        }
+
+        public void UpdateReviews(int id, Reviews a)
+        {
+            db.Entry(a).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

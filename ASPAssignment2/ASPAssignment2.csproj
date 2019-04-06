@@ -218,7 +218,7 @@
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseContextInitializer.cs" />
     <Compile Include="Models\GenreLayer.cs" />
-    <Compile Include="Models\EFReviews.cs" />
+    <Compile Include="Models\ReviewsLayer.cs" />
     <Compile Include="Models\VideoGamesLayer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />

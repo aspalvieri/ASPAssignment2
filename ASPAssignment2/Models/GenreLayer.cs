@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -14,13 +15,13 @@ namespace ASPAssignment2.Models
         {
             db.Genres.Remove(genre);
             db.SaveChanges();
-        }
+        }*/
+
 
         public void Dispose()
         {
             db.Dispose();
         }
-
         public Genre Save(Genre genre)
         {
             if (genre.GenreId == 0)
@@ -34,7 +35,7 @@ namespace ASPAssignment2.Models
 
             db.SaveChanges();
             return genre;
-        }*/
+        }
         private DatabaseContext db = new DatabaseContext();
         public void CreateGenre(Genre a)
         {
@@ -58,6 +59,12 @@ namespace ASPAssignment2.Models
         public IQueryable<Genre> GetGenres()
         {
             return db.Genres;
+        }
+
+        public void UpdateGenre(int id, Genre genre)
+        {
+            db.Entry(genre).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

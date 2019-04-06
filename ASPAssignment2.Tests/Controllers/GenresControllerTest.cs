@@ -7,13 +7,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ASPAssignment2;
 using ASPAssignment2.Controllers;
 using ASPAssignment2.Models;
+using ASPAssignment2.Tests.Fakes;
+using System.Net;
+using System.Web.Http.Results;
 
 namespace ASPAssignment2.Tests.Controllers
 {
     [TestClass]
     public class GenresControllerTest
     {
-        GenresController controller;
+        /*GenresController controller;
         private DatabaseContext context = new DatabaseContext();
         [TestInitialize]
         public void TestInitialize(){
@@ -24,19 +27,174 @@ namespace ASPAssignment2.Tests.Controllers
             context.Genres.Add(fps);
             context.Genres.Add(moba);
             
-        }
+        }*/
+
 
 
         [TestMethod]
         public void IndexTest() {
             //Arrange
-            //Instance decleared in TestInitialize()
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
             //Act
             ViewResult result = controller.Index() as ViewResult;
             //Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result.ViewName, "Index");
+            
         }
-    }      
+
+        [TestMethod]
+        public void DetailValidId()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Details(1) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Details", result);
+        }
+
+        [TestMethod]
+        public void DetailInValidId()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Details(300) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Error",result);
+        }
+
+        [TestMethod]
+        public void CreateView()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Create() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Create", result);
+        }
+
+
+        [TestMethod]
+        public void InvalidEdit()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Edit(200) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Error", result);
+        }
+
+        [TestMethod]
+        public void ValidEdit()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Edit(1) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Edit", result);
+        }
+
+        [TestMethod]
+        public void ValidEditSave()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            Genre fps = new Genre { Name = "FPS", Description = "Men's romance" };
+            ViewResult result = controller.Edit(fps) as ViewResult;
+            
+            // Assert
+            Assert.AreEqual("Edit", result);
+        }
+
+        [TestMethod]
+        public void InValidDelete()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Delete(300) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Error", result);
+        }
+
+        [TestMethod]
+        public void ValidDelete()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Delete(1) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Delete", result);
+        }
+
+        [TestMethod]
+        public void DeleteConfirmedInvalidId()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.DeleteConfirmed(300) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Error", result);
+        }
+
+        public void DeleteConfirmedValidId()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            System.Web.Mvc.RedirectToRouteResult actual = (System.Web.Mvc.RedirectToRouteResult)controller.DeleteConfirmed(1);
+            // Assert
+            Assert.AreEqual("Index", actual.RouteValues["action"]);
+        }
+
+    }
 }
 
 

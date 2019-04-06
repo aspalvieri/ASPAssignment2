@@ -7,13 +7,14 @@ namespace ASPAssignment2.Models
 {
     public interface IVideoGamesMock
     {
-        IQueryable<VideoGame> videoGames { get; }
-        IQueryable<Reviews> Reviews { get; }
-
-        VideoGame Save(VideoGame videoGame);
-        void Delete(VideoGame videoGame);
-        void Delete(Reviews review);
-        void Save(Reviews rev);
+        IQueryable<VideoGame> GetVideoGames();
+        void UpdateVideoGames(int id, VideoGame videoGame);
+        VideoGame SaveVideoGames(VideoGame videoGame);
+        void DeleteVideoGames(VideoGame videoGame);
+        void DeleteReviews(Reviews review);
+        Reviews SaveReviews(Reviews rev);
         void Dispose();
+        VideoGame GetVideoGame(int id);
+
     }
 }
