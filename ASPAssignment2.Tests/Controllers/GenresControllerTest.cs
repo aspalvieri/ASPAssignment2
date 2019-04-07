@@ -287,7 +287,19 @@ namespace ASPAssignment2.Tests.Controllers
             Assert.IsTrue(true);
         }
 
-     
+        [TestMethod]
+        public void IndexNotTestCase()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = false;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            controller.Index();
+            // Assert
+            Assert.IsTrue(true);
+        }
     }
 }
 
