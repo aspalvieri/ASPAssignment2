@@ -22,3 +22,29 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.item-container {
+    width: 100%;
+    border: 2px solid gray;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.item-box {
+    width: 22%;
+    margin: 1.5%;
+    border: 5px double black;
+    padding: 10px;
+    text-align: center;
+    overflow: auto;
+}
+
+.item-box h1, .item-box h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.item-box h1 {
+    font-weight:bold;
+}

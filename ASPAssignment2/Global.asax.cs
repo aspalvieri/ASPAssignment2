@@ -14,6 +14,7 @@ namespace ASPAssignment2
     {
         protected void Application_Start()
         {
+            //Database.SetInitializer(new AccountContextInitializer());
             Database.SetInitializer(new DatabaseContextInitializer());
 
             AreaRegistration.RegisterAllAreas();

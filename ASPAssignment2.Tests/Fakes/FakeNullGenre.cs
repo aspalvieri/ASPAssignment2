@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASPAssignment2.Tests.Fakes
 {
-    class FakeGenreBL : IGenreMock
+    class FakeNullGenre : IGenreMock
     {
         public void CreateGenre(Genre a)
         {
@@ -38,11 +38,7 @@ namespace ASPAssignment2.Tests.Fakes
             Genre comedy = new Genre { GenreId = 3, Name = "Comedy", Description = "deep breath in your tough life" };
             Genre fps = new Genre { Name = "FPS", Description = "Men's romance" };
             Genre moba = new Genre { Name = "Moba", Description = "Uninstall button onclick" };
-            List<Genre> genres = new List<Genre> {
-                comedy,
-                fps,
-                moba
-            };
+            List<Genre> genres = new List<Genre> { };
             return genres;
         }
         public Genre GetGenre(int id)
@@ -82,6 +78,6 @@ namespace ASPAssignment2.Tests.Fakes
         {
             return genre;
         }
-    }
 
+    }
 }

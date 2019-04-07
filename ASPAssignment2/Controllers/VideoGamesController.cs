@@ -30,7 +30,8 @@ namespace ASPAssignment2.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var videoGames = db.VideoGames.Include(v => v.Genre);
+            return View(videoGames.OrderBy(o => o.Name).ToList());
         }
 
         // GET: VideoGames/Games
