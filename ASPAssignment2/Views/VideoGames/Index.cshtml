@@ -3,33 +3,85 @@
     ViewBag.Title = "Video Games";
 }
 
-<h2>Video Games</h2>
+
+
+<a href="/VideoGames/VideoGames">View Game Details</a>
+<div class="item-container">
+    @foreach (var item in Model)
+    {
+        <div class="item-box">
+            <h1>@item.Name</h1>
+            <h2>$@item.Price</h2>
+            <h2>@item.Publisher</h2>
+            <h2>@item.Developer</h2>
+            <a href="/VideoGames/Details?id=@item.VideoGameId" class="btn btn-default">View Reviews</a>
+        </div>
+    }
+</div>
+
+<h2>More Video Games</h2>
+<style>
+    div.main {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 180px;
+    }
+
+        div.main:hover {
+            border: 1px solid #777;
+        }
+
+        div.main img {
+            width: 100%;
+            height: auto;
+        }
+
+    div.desc {
+        padding: 15px;
+        text-align: center;
+    }
+</style>
+<h2> Video Games</h2>
 
 <div class="main">
     <a target="_blank" href="https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/">
-        <img src="https://7launcher.com/wp-content/uploads/2018/07/csgo-poster.jpg" alt="CS GO" width="600" height="400">
+        <img src="https://7launcher.com/wp-content/uploads/2018/07/csgo-poster.jpg" alt="CS GO" width="50" height="80">
     </a>
-    <div class="desc">$10 : FPS</div>
+    <div class="desc"> $10 : FPS</div>
 </div>
 
 <div class="main">
     <a target="_blank" href="https://us.shop.battle.net/en-us/product/overwatch?p=37693">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/51vtVoN5d0L.jpg" alt="Overwatch" width="600" height="400">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/51vtVoN5d0L.jpg" alt="Overwatch" width="50" height="80">
     </a>
-    <div class="desc">$36.6 : FPS Fast Pace</div>
+    <div class="desc"> $36.6 : FPS Fast Pace</div>
 </div>
 
 <div class="main">
     <a target="_blank" href="https://www.dota2.com/play/">
-        <img src="https://s.starladder.com/assets/coreui/game/dota2-game-75c9fba3bac3430fc50584e30805676118740123f2a1e3d6d14f4e9e2aa593ec.png" alt="Dota 2" width="600" height="400">
+        <img src="https://s.starladder.com/assets/coreui/game/dota2-game-75c9fba3bac3430fc50584e30805676118740123f2a1e3d6d14f4e9e2aa593ec.png" alt="Dota 2" width="50" height="80">
     </a>
-    <div class="desc">Free MMORPG</div>
+    <div class="desc"> Free MMORPG</div>
 </div>
 
 <div class="main">
     <a target="_blank" href="https://rainbow6.ubisoft.com/siege/en-ca/buy/index.aspx">
         <img src="https://i0.wp.com/ih1.redbubble.net/image.455306381.6843/flat,550x550,075,f.u5.jpg" alt="Rainbow Six Seige" width="600" height="400">
     </a>
-    <div class="desc">$20 : FPS Shooter</div>
+    <div class="desc"> $20 : FPS Shooter</div>
 </div>
 
+<div class="main">
+    <a target="_blank" href="https://store.steampowered.com/app/252490/Rust/">
+        <img src="https://www.mmogames.com/wp-content/uploads/2014/02/Rust_Register_Image.jpg" alt="Rust" width="50" height="80">
+    </a>
+    <div class="desc"> $40 : Survival</div>
+</div>
+
+<div class="main">
+    <a target="_blank" href="https://store.steampowered.com/app/578080/PLAYERUNKNOWNS_BATTLEGROUNDS/">
+        <img src="https://ae01.alicdn.com/kf/HTB1R9DuXzzuK1Rjy0Fpq6yEpFXaD/Custom-Canvas-Wall-Decals-Battlegrounds-Poster-Player-Unknown-s-Battlegrounds-Wall-Stickers-Mural-PUBG-Game-Wallpaper.jpg" alt="Rainbow Six Seige" width="600" height="400">
+    </a>
+    <div class="desc"> $23.3 : Battle Royale</div>
+</div>
