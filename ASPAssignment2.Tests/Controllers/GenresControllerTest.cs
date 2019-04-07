@@ -53,10 +53,11 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            ViewResult result = controller.Details(1) as ViewResult;
+            ViewResult result = controller.Details(3) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Details", result);
+            //Assert.AreEqual("", result.ViewName);
+            Assert.IsNotNull(result.ViewName);
         }
 
         [TestMethod]
@@ -71,7 +72,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Details(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Error",result);
+            Assert.AreEqual("Details",result.ViewName);
         }
 
         [TestMethod]
@@ -86,7 +87,23 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Create() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Create", result);
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Create()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            Genre test = new Genre {GenreId = 100, Name = "test", Description = "test" };
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Create(test) as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Create", result.ViewName);
         }
 
 
@@ -102,7 +119,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Edit(200) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Error", result);
+            Assert.AreEqual("Edit", result.ViewName);
         }
 
         [TestMethod]
@@ -117,7 +134,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Edit(1) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Edit", result);
+            Assert.AreEqual("Edit", result.ViewName);
         }
 
         [TestMethod]
@@ -133,7 +150,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Edit(fps) as ViewResult;
             
             // Assert
-            Assert.AreEqual("Edit", result);
+            Assert.AreEqual("Edit", result.ViewName);
         }
 
         [TestMethod]
@@ -148,7 +165,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Delete(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Error", result);
+            Assert.AreEqual("Delete", result.ViewName);
         }
 
         [TestMethod]
@@ -161,9 +178,10 @@ namespace ASPAssignment2.Tests.Controllers
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Delete(1) as ViewResult;
+            
 
             // Assert
-            Assert.AreEqual("Delete", result);
+            Assert.AreEqual("Delete", result.ViewName);
         }
 
         [TestMethod]
@@ -178,7 +196,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.DeleteConfirmed(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Error", result);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         public void DeleteConfirmedValidId()

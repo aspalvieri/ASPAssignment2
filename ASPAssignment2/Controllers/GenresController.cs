@@ -55,6 +55,7 @@ namespace ASPAssignment2.Controllers
                 genre = db.Genres.Find(id);
             else
                 genre = bl.GetGenre(id);
+           
             //Genre genre = db.Genres.SingleOrDefault(c => c.GenreId == id);
             if (genre == null)
             {
@@ -80,9 +81,17 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!testCase)
+                {
+                    db.Genres.Add(genre);
+                    db.SaveChanges();
+                }
                 //db.Genres.Add(genre);
                 //db.SaveChanges();
-                bl.CreateGenre(genre);
+                else {
+                    bl.CreateGenre(genre);
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -128,12 +137,19 @@ namespace ASPAssignment2.Controllers
         [Route("Genres/Delete")]
         public ActionResult Delete(int id)
         {
+            Genre genre;
+            if (!testCase)
+            {
+                genre = db.Genres.Find(id);
+            }
             /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }*/
             //Genre genre = db.Genres.Find(id);
-            Genre genre = bl.GetGenre(id);
+            else {
+                genre = bl.GetGenre(id);
+            }
             if (genre == null)
             {
                 return View("Error");

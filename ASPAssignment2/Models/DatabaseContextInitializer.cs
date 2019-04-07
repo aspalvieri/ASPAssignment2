@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
-    public class DatabaseContextInitializer : CreateDatabaseIfNotExists<DatabaseContext>
+    public class DatabaseContextInitializer : DropCreateDatabaseAlways<DatabaseContext>
     {
         protected override void Seed(DatabaseContext context)
         {

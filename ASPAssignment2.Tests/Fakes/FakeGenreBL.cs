@@ -16,12 +16,20 @@ namespace ASPAssignment2.Tests.Fakes
 
         public void DetailsGenre(Genre a)
         {
-            return;
+            return ;
         }
 
         public void DeleteGenre(Genre genre)
         {
-            return;
+            List<Genre> genres = createGenres();
+            if (genres.Contains(genre))
+            {
+                genres.Remove(genre);
+                return;
+            }
+            else {
+                return;
+            }
         }
 
         private List<Genre> createGenres() {
@@ -37,9 +45,15 @@ namespace ASPAssignment2.Tests.Fakes
         }
         public Genre GetGenre(int id)
         {
-            List<Genre> albums = createGenres();
-            Genre toReturn = albums.First(x => x.GenreId == id);
-            return toReturn;
+            List<Genre> genres = createGenres();
+            try
+            {
+                Genre toReturn = genres.First(x => x.GenreId == id);
+                return toReturn;
+            }
+            catch (Exception e) {
+                return genres.FirstOrDefault();
+            }
         }
 
         public IQueryable<Genre> GetGenres()
