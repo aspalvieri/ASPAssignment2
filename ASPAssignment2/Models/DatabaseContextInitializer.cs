@@ -63,4 +63,11 @@ namespace ASPAssignment2.Models
 
         }
     }
+    public class AccountContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            base.Seed(context);
+        }
+    }
 }
