@@ -44,11 +44,27 @@ namespace ASPAssignment2.Tests.Controllers
             
         }
 
+
         [TestMethod]
         public void DetailValidId()
         {
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Details(3) as ViewResult;
+
+            // Assert
+            //Assert.AreEqual("", result.ViewName);
+            Assert.IsNotNull(result.ViewName);
+        }
+        [TestMethod]
+        public void DetailNull()
+        {
+            //Arrange
+            FakeNullGenre fake = new FakeNullGenre();
             GenresController controller = new GenresController(fake);
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
@@ -106,7 +122,21 @@ namespace ASPAssignment2.Tests.Controllers
             Assert.AreEqual("Create", result.ViewName);
         }
 
+        [TestMethod]
+        public void CreateInvalid()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            Genre test = new Genre { GenreId = 30 ,Name = "test", Description = "test" };
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Create(test) as ViewResult;
 
+            // Assert
+            Assert.AreEqual("Create", result.ViewName);
+        }
         [TestMethod]
         public void InvalidEdit()
         {
@@ -135,6 +165,21 @@ namespace ASPAssignment2.Tests.Controllers
 
             // Assert
             Assert.AreEqual("Edit", result.ViewName);
+        }
+        [TestMethod]
+        public void EditNull()
+        {
+            //Arrange
+            FakeNullGenre fake = new FakeNullGenre();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Edit(3) as ViewResult;
+
+            // Assert
+            //Assert.AreEqual("", result.ViewName);
+            Assert.IsNotNull(result.ViewName);
         }
 
         [TestMethod]
@@ -183,6 +228,22 @@ namespace ASPAssignment2.Tests.Controllers
             // Assert
             Assert.AreEqual("Delete", result.ViewName);
         }
+        [TestMethod]
+        public void DeleteNull()
+        {
+            //Arrange
+            FakeNullGenre fake = new FakeNullGenre();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            ViewResult result = controller.Delete(3) as ViewResult;
+
+            // Assert
+            //Assert.AreEqual("", result.ViewName);
+            Assert.IsNotNull(result.ViewName);
+        }
+
 
         [TestMethod]
         public void DeleteConfirmedInvalidId()
@@ -198,6 +259,7 @@ namespace ASPAssignment2.Tests.Controllers
             // Assert
             Assert.AreEqual("Error", result.ViewName);
         }
+        [TestMethod]
 
         public void DeleteConfirmedValidId()
         {
@@ -211,7 +273,21 @@ namespace ASPAssignment2.Tests.Controllers
             // Assert
             Assert.AreEqual("Index", actual.RouteValues["action"]);
         }
+        [TestMethod]
+        public void Dispose()
+        {
+            //Arrange
+            FakeGenreBL fake = new FakeGenreBL();
+            GenresController controller = new GenresController(fake);
+            controller.testCase = true;
+            //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
+            // Act
+            controller.Dispose();
+            // Assert
+            Assert.IsTrue(true);
+        }
 
+     
     }
 }
 
