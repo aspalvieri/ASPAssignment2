@@ -28,7 +28,8 @@ textarea {
     border: 2px solid gray;
     display: flex;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content: center;
+    background-color: rgb(240, 207, 135);
 }
 
 .item-box {
@@ -38,6 +39,7 @@ textarea {
     padding: 10px;
     text-align: center;
     overflow: auto;
+    background-color: sandybrown;
 }
 
 .item-box h1, .item-box h2 {
@@ -47,4 +49,40 @@ textarea {
 
 .item-box h1 {
     font-weight:bold;
+    background-color: lightblue;
+}
+.item-box h2 {
+    background-color: lightgray;
+}
+
+.item-box a {
+    margin-top: 8px;
+}
+
+body {
+    background-color: rgb(243, 228, 192);
+    font-size: 150%;
+}
+
+table {
+    background-color: rgb(240, 207, 135);
+}
+
+table thead {
+    background-color: rgb(231, 196, 131);
+}
+
+div.navbar {
+    background-color: rgb(223, 173, 80);
+}
+
+div.navbar div.container div a {
+    color: black;
+    border: 3px ridge gold;
+    height: 100%;
+    font-size: 120%;
+}
+
+hr {
+    border-top: 2px solid lightgray;
 }
