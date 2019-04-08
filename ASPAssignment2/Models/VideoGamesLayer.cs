@@ -57,6 +57,13 @@ namespace ASPAssignment2.Models
             }
         }*/
         private DatabaseContext db = new DatabaseContext();
+
+        public void CreateVideoGames(VideoGame videoGame)
+        {
+            db.VideoGames.Add(videoGame);
+            db.SaveChanges();
+        }
+
         public void DeleteReviews(Reviews review)
         {
             db.Reviews.Remove(review);
@@ -72,6 +79,16 @@ namespace ASPAssignment2.Models
         public void Dispose()
         {
             db.Dispose();
+        }
+
+        public IQueryable<Reviews> GetReviews()
+        {
+            return db.Reviews;
+        }
+
+        public Reviews GetReviews(int id)
+        {
+            return db.Reviews.Find(id);
         }
 
         public VideoGame GetVideoGame(int id)
@@ -116,7 +133,16 @@ namespace ASPAssignment2.Models
 
         public VideoGame SaveVideoGames(VideoGame videoGame)
         {
-            throw new NotImplementedException();
+            if (videoGame.VideoGameId == 0)
+            {
+                db.VideoGames.Add(videoGame);
+            }
+            else
+            {
+                db.Entry(videoGame).State = System.Data.Entity.EntityState.Modified;
+            }
+            db.SaveChanges();
+            return videoGame;
         }
 
         public void UpdateVideoGames(int id, VideoGame videoGame)

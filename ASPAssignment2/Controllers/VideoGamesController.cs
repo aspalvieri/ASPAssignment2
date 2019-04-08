@@ -16,11 +16,11 @@ namespace ASPAssignment2.Controllers
     public class VideoGamesController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
-        private IVideoGamesMock @object;
-
-        public VideoGamesController(IVideoGamesMock @object)
+        private IVideoGamesMock bl;
+        public bool testCase = false;
+        public VideoGamesController(IVideoGamesMock bl)
         {
-            this.@object = @object;
+            this.bl = bl;
         }
 
         // GET: VideoGames
@@ -30,8 +30,8 @@ namespace ASPAssignment2.Controllers
 
         public ActionResult Index()
         {
-            var videoGames = db.VideoGames.Include(v => v.Genre);
-            return View(videoGames.OrderBy(o => o.Name).ToList());
+            //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
+            return View("Index");
         }
 
         // GET: VideoGames/Games
@@ -40,8 +40,10 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult VideoGames()
         {
-            var videoGames = db.VideoGames.Include(v => v.Genre);
-            return View(videoGames.OrderBy(o => o.Name).ToList());
+
+            //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
+
+            return View("Index");
             //return View(videoGames.OrderBy(o => o.Genre).ThenBy(o => o.Name).ToList());
         }
 
@@ -49,18 +51,31 @@ namespace ASPAssignment2.Controllers
         [Authorize]
         [AllowAnonymous]
         [Route("VideoGames/Details")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            VideoGame videoGame;
+            if (!testCase)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                videoGame = db.VideoGames.Find(id);
             }
-            VideoGame videoGame = db.VideoGames.Find(id);
+            else
+            {
+                videoGame = bl.GetVideoGame(id);
+            }
             if (videoGame == null)
             {
-                return HttpNotFound();
+                View("Error");
             }
-            List<Reviews> reviewList = db.Reviews.ToList();
+            List<Reviews> reviewList;
+            //reviewList = db.Reviews.ToList();
+            reviewList = bl.GetReviews().ToList();
+            /*if (!testCase) {
+                reviewList = db.Reviews.ToList();
+            }
+            
+            else {
+                reviewList = bl.GetReviews();
+            }*/
             List<Reviews> reviews = new List<Reviews>();
             foreach (Reviews review in reviewList)
             {
@@ -70,7 +85,7 @@ namespace ASPAssignment2.Controllers
                 }
             }
             videoGame.Reviews = reviews;
-            return View(videoGame);
+            return View("Details", videoGame);
         }
 
         [Authorize]
@@ -89,8 +104,15 @@ namespace ASPAssignment2.Controllers
             };
             if (rev.CheckModelState())
             {
-                db.Reviews.Add(rev);
-                db.SaveChanges();
+                if (!testCase)
+                {
+                    db.Reviews.Add(rev);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    bl.SaveReviews(rev);
+                }
                 string data = new JavaScriptSerializer().Serialize(rev);
                 return data;
             }
@@ -99,7 +121,7 @@ namespace ASPAssignment2.Controllers
 
         [Authorize]
         [Route("VideoGames/DeleteReview")]
-        public ActionResult DeleteReview(int? id, int? reviewid)
+        public ActionResult DeleteReview(int id, int? reviewid)
         {
             //Ensure user is logged in before deleting a review
             if (!Request.IsAuthenticated)
@@ -107,17 +129,32 @@ namespace ASPAssignment2.Controllers
                 return Redirect("VideoGames");
             }
             //Ensure 2 data types were given
-            if (id == null || reviewid == null)
+            if (reviewid == null)
             {
                 return Redirect("VideoGames");
             }
-            Reviews review = db.Reviews.Find(reviewid);
+            Reviews review;
+            if (!testCase)
+            {
+                review = db.Reviews.Find(reviewid);
+            }
+            else
+            {
+                review = bl.GetReviews(id);
+            }
             if (review == null)
             {
                 return Redirect("VideoGames");
             }
-            db.Reviews.Remove(review);
-            db.SaveChanges();
+            if (!testCase)
+            {
+                db.Reviews.Remove(review);
+                db.SaveChanges();
+            }
+            else
+            {
+                bl.DeleteReviews(review);
+            }
             return Redirect("Details?id=" + id);
         }
 
@@ -127,7 +164,7 @@ namespace ASPAssignment2.Controllers
         public ActionResult Create()
         {
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
-            return View();
+            return View("Create");
         }
 
         // POST: VideoGames/Create
@@ -141,31 +178,39 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.VideoGames.Add(videoGame);
-                db.SaveChanges();
-                return RedirectToAction("VideoGames");
+                if (!testCase)
+                {
+                    db.VideoGames.Add(videoGame);
+                    db.SaveChanges();
+                }
+                else
+                    bl.CreateVideoGames(videoGame);
+
             }
 
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View(videoGame);
+            return View("Create", videoGame);
         }
 
         // GET: VideoGames/Edit/5
         [Authorize]//(Roles = "Admin")]
         [Route("VideoGames/Edit")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VideoGame videoGame = db.VideoGames.Find(id);
+            }*/
+            VideoGame videoGame;
+
+            //videoGame = db.VideoGames.Find(id);
+            videoGame = bl.GetVideoGame(id);
             if (videoGame == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View(videoGame);
+            return View("Edit", videoGame);
         }
 
         // POST: VideoGames/Edit/5
@@ -179,29 +224,31 @@ namespace ASPAssignment2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(videoGame).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(videoGame).State = EntityState.Modified;
+                //db.SaveChanges();
+                bl.SaveVideoGames(videoGame);
                 return RedirectToAction("VideoGames");
             }
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View(videoGame);
+            return View("Edit", videoGame);
         }
 
         // GET: VideoGames/Delete/5
         [Route("VideoGames/Delete")]
         [Authorize]//(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VideoGame videoGame = db.VideoGames.Find(id);
+            }*/
+            //VideoGame videoGame = db.VideoGames.Find(id);
+            VideoGame videoGame = bl.GetVideoGame(id);
             if (videoGame == null)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(videoGame);
+            return View("Delete", videoGame);
         }
 
         // POST: VideoGames/Delete/5
@@ -211,9 +258,11 @@ namespace ASPAssignment2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            VideoGame videoGame = db.VideoGames.Find(id);
-            db.VideoGames.Remove(videoGame);
-            db.SaveChanges();
+            //VideoGame videoGame = db.VideoGames.Find(id);
+            VideoGame videoGame = bl.GetVideoGame(id);
+            //db.VideoGames.Remove(videoGame);
+            //db.SaveChanges();
+            bl.DeleteVideoGames(videoGame);
             return RedirectToAction("VideoGames");
         }
 

@@ -112,6 +112,8 @@
     <Compile Include="Controllers\VideoGamsControllerTest.cs" />
     <Compile Include="Fakes\FakeGenreBL.cs" />
     <Compile Include="Fakes\FakeNullGenre.cs" />
+    <Compile Include="Fakes\FakeNullVideoGame.cs" />
+    <Compile Include="Fakes\FakeVideoGamesBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
