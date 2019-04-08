@@ -30,6 +30,9 @@ namespace ASPAssignment2.Controllers
 
         public ActionResult Index()
         {
+            if (testCase) {
+                return View("Index");
+            }
             //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
             return View("Index", db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
         }
@@ -40,7 +43,10 @@ namespace ASPAssignment2.Controllers
         [AllowAnonymous]
         public ActionResult VideoGames()
         {
-
+            if (testCase)
+            {
+                return View("Index");
+            }
             //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
 
             return View("VideoGames", db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
