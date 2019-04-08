@@ -9,6 +9,13 @@ namespace ASPAssignment2.Tests.Fakes
 {
     class FakeNullGenre : IGenreMock
     {
+        public bool testCase = false;
+
+        public void SetTest(bool test)
+        {
+            testCase = test;
+        }
+
         public void CreateGenre(Genre a)
         {
             return;
@@ -19,17 +26,31 @@ namespace ASPAssignment2.Tests.Fakes
             return;
         }
 
-        public void DeleteGenre(Genre genre)
+        public bool DeleteGenre(Genre genre)
         {
             List<Genre> genres = createGenres();
             if (genres.Contains(genre))
             {
                 genres.Remove(genre);
-                return;
+                return true;
             }
             else
             {
-                return;
+                return false;
+            }
+        }
+
+        public bool DeleteGenreTest(Genre genre)
+        {
+            List<Genre> genres = createGenres();
+            if (genres.Contains(genre))
+            {
+                genres.Remove(genre);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

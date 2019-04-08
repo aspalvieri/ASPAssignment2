@@ -70,7 +70,7 @@ namespace ASPAssignment2.Controllers
             }
             if (videoGame == null)
             {
-                View("Error");
+                return View("Error");
             }
             List<Reviews> reviewList;
             //reviewList = db.Reviews.ToList();
@@ -103,7 +103,7 @@ namespace ASPAssignment2.Controllers
             {
                 VideoGameId = videogameid,
                 ReviewsId = reviewid,
-                Name = User.Identity.Name,
+                Name = ((testCase) ? "Username" : User.Identity.Name),
                 Subject = subject,
                 Stars = stars,
                 Review = review
@@ -118,6 +118,7 @@ namespace ASPAssignment2.Controllers
                 else
                 {
                     bl.SaveReviews(rev);
+                    return "Success";
                 }
                 string data = new JavaScriptSerializer().Serialize(rev);
                 return data;
@@ -130,7 +131,7 @@ namespace ASPAssignment2.Controllers
         public ActionResult DeleteReview(int id, int? reviewid)
         {
             //Ensure user is logged in before deleting a review
-            if (!Request.IsAuthenticated)
+            if (!testCase && !Request.IsAuthenticated )
             {
                 return Redirect("VideoGames");
             }
@@ -160,6 +161,7 @@ namespace ASPAssignment2.Controllers
             else
             {
                 bl.DeleteReviews(review);
+                return View("Index");
             }
             return Redirect("Details?id=" + id);
         }
@@ -188,7 +190,7 @@ namespace ASPAssignment2.Controllers
                 {
                     db.VideoGames.Add(videoGame);
                     db.SaveChanges();
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                     bl.CreateVideoGames(videoGame);
@@ -269,8 +271,10 @@ namespace ASPAssignment2.Controllers
             VideoGame videoGame = bl.GetVideoGame(id);
             //db.VideoGames.Remove(videoGame);
             //db.SaveChanges();
-            bl.DeleteVideoGames(videoGame);
-            return RedirectToAction("VideoGames");
+
+            if (bl.DeleteVideoGames(videoGame))
+                return RedirectToAction("VideoGames");
+            return RedirectToAction("Error");
         }
 
         protected override void Dispose(bool disposing)

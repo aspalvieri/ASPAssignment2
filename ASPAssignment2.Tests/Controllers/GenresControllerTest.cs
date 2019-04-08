@@ -88,7 +88,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Details(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Details",result.ViewName);
+            Assert.AreEqual("Error",result.ViewName);
         }
 
         [TestMethod]
@@ -113,7 +113,11 @@ namespace ASPAssignment2.Tests.Controllers
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
             controller.testCase = true;
-            Genre test = new Genre {GenreId = 100, Name = "test", Description = "test" };
+            Genre test = new Genre {
+                GenreId = 100,
+                Name = "test",
+                Description = "test"
+            };
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             ViewResult result = controller.Create(test) as ViewResult;
@@ -149,7 +153,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Edit(200) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Edit", result.ViewName);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         [TestMethod]
@@ -210,7 +214,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Delete(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Delete", result.ViewName);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         [TestMethod]
@@ -254,10 +258,10 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            ViewResult result = controller.DeleteConfirmed(300) as ViewResult;
+            System.Web.Mvc.RedirectToRouteResult actual = (System.Web.Mvc.RedirectToRouteResult)controller.DeleteConfirmed(123);
 
             // Assert
-            Assert.AreEqual("Error", result.ViewName);
+            Assert.AreEqual("Error", actual.RouteValues["action"]);
         }
         [TestMethod]
 
@@ -265,6 +269,7 @@ namespace ASPAssignment2.Tests.Controllers
         {
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
+            //fake.createGenres();
             GenresController controller = new GenresController(fake);
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
@@ -288,17 +293,18 @@ namespace ASPAssignment2.Tests.Controllers
         }
 
         [TestMethod]
-        public void IndexNotTestCase()
+        public void NotTestCase()
         {
             //Arrange
             FakeGenreBL fake = new FakeGenreBL();
             GenresController controller = new GenresController(fake);
-            controller.testCase = false;
+
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            controller.Index();
+            controller.testCase = false;
+            //controller.Index();
             // Assert
-            Assert.IsTrue(true);
+            Assert.AreEqual(false, controller.testCase);
         }
     }
 }

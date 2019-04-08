@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +9,9 @@ namespace ASPAssignment2.Models
 {
     public class VideoGame
     {
+        //[Key]
         public virtual int VideoGameId { get; set; }
+
         public virtual int GenreId { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -30,7 +33,9 @@ namespace ASPAssignment2.Models
         [DataType(DataType.MultilineText)]
         public virtual string Description { get; set; }
 
+        //[ForeignKey("GenreId")]
         public virtual Genre Genre { get; set; }
+
         public List<Reviews> Reviews { get; set; }
         public Reviews newReview { get; set; }
     }

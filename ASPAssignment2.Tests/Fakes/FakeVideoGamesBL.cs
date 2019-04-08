@@ -9,14 +9,29 @@ namespace ASPAssignment2.Tests.Fakes
 {
     class FakeVideoGamesBL : IVideoGamesMock
     {
+        public List<VideoGame> videoGames;
+        public List<Reviews> reviews;
+
         public void DeleteReviews(Reviews review)
         {
-            return;
+            if (reviews.Contains(review))
+            {
+                reviews.Remove(review);
+            }
         }
 
-        public void DeleteVideoGames(VideoGame videoGame)
+        public bool DeleteVideoGames(VideoGame videoGame)
         {
-            return;
+            //List<VideoGame> videoGames = createVideoGames();
+            if (videoGames.Contains(videoGame))
+            {
+                videoGames.Remove(videoGame);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Dispose()
@@ -40,7 +55,7 @@ namespace ASPAssignment2.Tests.Fakes
         }
         public VideoGame GetVideoGame(int id)
         {
-            List<VideoGame> videoGames = createVideoGames();
+            videoGames = createVideoGames();
             try
             {
                 VideoGame toReturn = videoGames.First(x => x.VideoGameId == id);
@@ -48,17 +63,17 @@ namespace ASPAssignment2.Tests.Fakes
             }
             catch (Exception e)
             {
-                return videoGames.FirstOrDefault();
+                return null;
             }
         }
 
         private List<VideoGame> createVideoGames()
         {
-            Genre fps = new Genre { Name = "FPS", Description = "First-person shooter." };
+            Genre fps = new Genre {GenreId = 101, Name = "FPS", Description = "First-person shooter." };
             Genre moba = new Genre { GenreId = 100, Name = "Moba", Description = "Angry team simulator." };
             VideoGame game1 = new VideoGame
             {
-                VideoGameId = 3,
+                VideoGameId = 1,
                 Name = "CS : GO",
                 Price = 20,
                 Developer = "UK",
@@ -68,6 +83,7 @@ namespace ASPAssignment2.Tests.Fakes
             };
             VideoGame game2 = new VideoGame
             {
+                VideoGameId = 2,
                 Name = "Card Battle",
                 Price = 50,
                 Developer = "Developer",
@@ -86,10 +102,10 @@ namespace ASPAssignment2.Tests.Fakes
         }
         private List<Reviews> createReviews()
         {
-            Genre fps = new Genre { Name = "FPS", Description = "First-person shooter." };
+            Genre fps = new Genre { GenreId = 1, Name = "FPS", Description = "First-person shooter." };
             VideoGame csgo = new VideoGame
             {
-                VideoGameId = 3,
+                VideoGameId = 1,
                 Name = "CS : GO",
                 Price = 20,
                 Developer = "UK",
@@ -99,22 +115,22 @@ namespace ASPAssignment2.Tests.Fakes
             };
             Reviews review1 = new Reviews
             {
+                ReviewsId = 1,
                 Name = "Craig@email.com",
                 Subject = "csgo",
                 Review = "I can't play",
                 Stars = 4,
-                VideoGame = csgo,
                 VideoGameId = 1
             };
 
             Reviews review2 = new Reviews
             {
+                ReviewsId = 2,
                 Name = "Alex@email.com",
                 Subject = "csgo",
                 Review = "I am top 500",
                 Stars = 5,
-                VideoGame = csgo,
-                VideoGameId = 2
+                VideoGameId = 1
             };
             List<Reviews> reviews = new List<Reviews> { review1, review2 };
             return reviews;
@@ -148,7 +164,7 @@ namespace ASPAssignment2.Tests.Fakes
 
         public Reviews GetReviews(int id)
         {
-            List<Reviews> reviews = createReviews();
+            reviews = createReviews();
             try
             {
                 Reviews toReturn = reviews.First(x => x.ReviewsId == id);

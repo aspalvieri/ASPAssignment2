@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,7 @@ namespace ASPAssignment2.Models
             VideoGames = new HashSet<VideoGame>();
         }*/
 
+        //[Key]
         public virtual int GenreId { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -26,6 +28,7 @@ namespace ASPAssignment2.Models
         public virtual string Description { get; set; }
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //[ForeignKey("VideoGameId")]
         public virtual ICollection<VideoGame> VideoGames { get; set; }
     }
 }

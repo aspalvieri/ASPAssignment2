@@ -70,10 +70,21 @@ namespace ASPAssignment2.Models
             db.SaveChanges();
         }
 
-        public void DeleteVideoGames(VideoGame videoGame)
+        public bool DeleteVideoGames(VideoGame videoGame)
         {
+            if (videoGame == null)
+                return false;
+            List<Reviews> reviews = db.Reviews.ToList();
+            foreach (Reviews r in reviews)
+            {
+                if (r.VideoGameId == videoGame.VideoGameId)
+                {
+                    db.Reviews.Remove(r);
+                }
+            }
             db.VideoGames.Remove(videoGame);
             db.SaveChanges();
+            return true;
         }
 
         public void Dispose()

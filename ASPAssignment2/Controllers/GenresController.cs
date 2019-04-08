@@ -85,6 +85,7 @@ namespace ASPAssignment2.Controllers
                 {
                     db.Genres.Add(genre);
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
                 //db.Genres.Add(genre);
                 //db.SaveChanges();
@@ -92,10 +93,9 @@ namespace ASPAssignment2.Controllers
                     bl.CreateGenre(genre);
                 }
                 
-                return RedirectToAction("Index");
             }
 
-            return View(genre);
+            return View("Create",genre);
         }
 
         // GET: Genres/Edit/5
@@ -128,7 +128,8 @@ namespace ASPAssignment2.Controllers
                 //db.Entry(genre).State = EntityState.Modified;
                 //db.SaveChanges();
                 bl.Save(genre);
-                return RedirectToAction("Index");
+                if (!testCase)
+                    return RedirectToAction("Index");
             }
             return View("Edit",genre);
         }
@@ -167,8 +168,9 @@ namespace ASPAssignment2.Controllers
             Genre genre = bl.GetGenre(id);
             //db.Genres.Remove(genre);
             //db.SaveChanges();
-            bl.DeleteGenre(genre);
-            return RedirectToAction("Index");
+            if (((testCase) ? bl.DeleteGenreTest(genre) : bl.DeleteGenre(genre)))
+                return RedirectToAction("Index");
+            return RedirectToAction("Error");
         }
 
         protected override void Dispose(bool disposing)

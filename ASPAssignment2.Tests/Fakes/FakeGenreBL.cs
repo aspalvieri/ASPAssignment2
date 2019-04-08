@@ -9,6 +9,8 @@ namespace ASPAssignment2.Tests.Fakes
 {
     class FakeGenreBL : IGenreMock
     {
+        public List<Genre> genres;
+
         public void CreateGenre(Genre a)
         {
             return;
@@ -19,26 +21,40 @@ namespace ASPAssignment2.Tests.Fakes
             return;
         }
 
-        public void DeleteGenre(Genre genre)
+        public bool DeleteGenre(Genre genre)
         {
-            List<Genre> genres = createGenres();
+            //List<Genre> genres = createGenres();
             if (genres.Contains(genre))
             {
                 genres.Remove(genre);
-                return;
+                return true;
             }
             else
             {
-                return;
+                return false;
             }
         }
 
-        private List<Genre> createGenres()
+        public bool DeleteGenreTest(Genre genre)
         {
-            Genre comedy = new Genre { GenreId = 3, Name = "Comedy", Description = "deep breath in your tough life" };
-            Genre fps = new Genre { Name = "FPS", Description = "Men's romance" };
-            Genre moba = new Genre { Name = "Moba", Description = "Uninstall button onclick" };
-            List<Genre> genres = new List<Genre> {
+            //List<Genre> genres = createGenres();
+            if (genres.Contains(genre))
+            {
+                genres.Remove(genre);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public List<Genre> createGenres()
+        {
+            Genre comedy = new Genre { GenreId = 1, Name = "Comedy", Description = "deep breath in your tough life" };
+            Genre fps = new Genre { GenreId = 2, Name = "FPS", Description = "Men's romance" };
+            Genre moba = new Genre { GenreId = 3, Name = "Moba", Description = "Uninstall button onclick" };
+            genres = new List<Genre> {
                 comedy,
                 fps,
                 moba
@@ -47,7 +63,7 @@ namespace ASPAssignment2.Tests.Fakes
         }
         public Genre GetGenre(int id)
         {
-            List<Genre> genres = createGenres();
+            genres = createGenres();
             try
             {
                 Genre toReturn = genres.First(x => x.GenreId == id);
@@ -55,7 +71,7 @@ namespace ASPAssignment2.Tests.Fakes
             }
             catch (Exception e)
             {
-                return genres.FirstOrDefault();
+                return null;
             }
         }
 

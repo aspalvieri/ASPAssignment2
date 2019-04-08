@@ -17,7 +17,6 @@ namespace ASPAssignment2.Models
             db.SaveChanges();
         }*/
 
-
         public void Dispose()
         {
             db.Dispose();
@@ -43,10 +42,37 @@ namespace ASPAssignment2.Models
             db.SaveChanges();
         }
 
-        public void DeleteGenre(Genre genre)
+        public bool DeleteGenre(Genre genre)
         {
+            if (genre == null)
+                return false;
+            List<Reviews> reviews = db.Reviews.ToList();
+            List<VideoGame> videoGames = db.VideoGames.ToList();
+            foreach (VideoGame v in videoGames)
+            {
+                if (v.GenreId == genre.GenreId)
+                {
+                    foreach (Reviews r in reviews)
+                    {
+                        if (r.VideoGameId == v.VideoGameId)
+                        {
+                            db.Reviews.Remove(r);
+                        }
+                    }
+                }
+            }
             db.Genres.Remove(genre);
             db.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteGenreTest(Genre genre)
+        {
+            if (genre == null)
+                return false;
+            db.Genres.Remove(genre);
+            db.SaveChanges();
+            return true;
         }
 
         public Genre GetGenre(int id)

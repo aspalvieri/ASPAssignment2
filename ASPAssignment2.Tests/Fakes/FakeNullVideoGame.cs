@@ -14,9 +14,17 @@ namespace ASPAssignment2.Tests.Fakes
             return;
         }
 
-        public void DeleteVideoGames(VideoGame videoGame)
+        public bool DeleteVideoGames(VideoGame videoGame)
         {
-            return;
+            List<VideoGame> videoGames = createVideoGames();
+            if (videoGames.Contains(videoGame))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Dispose()

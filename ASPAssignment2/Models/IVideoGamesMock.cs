@@ -11,7 +11,7 @@ namespace ASPAssignment2.Models
         IQueryable<Reviews> GetReviews();
         void UpdateVideoGames(int id, VideoGame videoGame);
         VideoGame SaveVideoGames(VideoGame videoGame);
-        void DeleteVideoGames(VideoGame videoGame);
+        bool DeleteVideoGames(VideoGame videoGame);
         void DeleteReviews(Reviews review);
         Reviews SaveReviews(Reviews rev);
         void Dispose();

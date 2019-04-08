@@ -84,7 +84,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Details(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Details", result.ViewName);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         [TestMethod]
@@ -168,7 +168,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Edit(200) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Edit", result.ViewName);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         [TestMethod]
@@ -180,7 +180,7 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            ViewResult result = controller.Edit(3) as ViewResult;
+            ViewResult result = controller.Edit(1) as ViewResult;
 
             // Assert
             Assert.AreEqual("Edit", result.ViewName);
@@ -211,19 +211,18 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            Genre fps = new Genre { Name = "FPS", Description = "First-person shooter." };
-            Genre moba = new Genre { GenreId = 100, Name = "Moba", Description = "Angry team simulator." };
+            Genre moba = new Genre { GenreId = 1, Name = "Moba", Description = "Angry team simulator." };
             VideoGame game1 = new VideoGame
             {
-                VideoGameId = 3,
-                Name = "CS : GO",
+                VideoGameId = 1,
+                Name = "CS:GO",
                 Price = 20,
                 Developer = "UK",
                 Publisher = "Steam",
                 Description = "FPS Game",
-                Genre = fps
+                Genre = moba
             };
-            ViewResult result = controller.Edit(game1) as ViewResult;
+            ViewResult result = controller.Edit(1) as ViewResult;
 
             // Assert
             Assert.AreEqual("Edit", result.ViewName);
@@ -241,7 +240,7 @@ namespace ASPAssignment2.Tests.Controllers
             ViewResult result = controller.Delete(300) as ViewResult;
 
             // Assert
-            Assert.AreEqual("Delete", result.ViewName);
+            Assert.AreEqual("Error", result.ViewName);
         }
         [TestMethod]
         public void ValidDelete()
@@ -283,10 +282,10 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = true;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            ViewResult result = controller.DeleteConfirmed(300) as ViewResult;
+            System.Web.Mvc.RedirectToRouteResult actual = (System.Web.Mvc.RedirectToRouteResult)controller.DeleteConfirmed(-1);
 
             // Assert
-            Assert.AreEqual("Error", result.ViewName);
+            Assert.AreEqual("Error", actual.RouteValues["action"]);
         }
 
         [TestMethod]
@@ -318,7 +317,7 @@ namespace ASPAssignment2.Tests.Controllers
         }
 
         [TestMethod]
-        public void IndexNotTestCase()
+        public void NotTestCase()
         {
             //Arrange
             FakeVideoGamesBL fake = new FakeVideoGamesBL();
@@ -326,9 +325,9 @@ namespace ASPAssignment2.Tests.Controllers
             controller.testCase = false;
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            controller.Index();
+            //controller.Index();
             // Assert
-            Assert.IsTrue(true);
+            Assert.AreEqual(false, controller.testCase);
         }
 
         [TestMethod]
@@ -338,30 +337,12 @@ namespace ASPAssignment2.Tests.Controllers
             FakeVideoGamesBL fake = new FakeVideoGamesBL();
             VideoGamesController controller = new VideoGamesController(fake);
             controller.testCase = true;
-            Genre fps = new Genre { Name = "FPS", Description = "First-person shooter." };
-            VideoGame csgo = new VideoGame
-            {
-                Name = "CS : GO",
-                Price = 20,
-                Developer = "UK",
-                Publisher = "Steam",
-                Description = "FPS Game",
-                Genre = fps
-            };
-            Reviews review1 = new Reviews
-            {
-                Name = "Craig@email.com",
-                Subject = "csgo",
-                Review = "I can't play",
-                Stars = 4,
-                VideoGame = csgo,
-                VideoGameId = 1
-            };
+            
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
             string result = controller.AddReview(1, 1, "test", 5, "test");
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual("Success", result);
         }
         [TestMethod]
         public void DeleteReview()
@@ -370,30 +351,12 @@ namespace ASPAssignment2.Tests.Controllers
             FakeVideoGamesBL fake = new FakeVideoGamesBL();
             VideoGamesController controller = new VideoGamesController(fake);
             controller.testCase = true;
-            Genre fps = new Genre { Name = "FPS", Description = "First-person shooter." };
-            VideoGame csgo = new VideoGame
-            {
-                Name = "CS : GO",
-                Price = 20,
-                Developer = "UK",
-                Publisher = "Steam",
-                Description = "FPS Game",
-                Genre = fps
-            };
-            Reviews review1 = new Reviews
-            {
-                Name = "Craig@email.com",
-                Subject = "csgo",
-                Review = "I can't play",
-                Stars = 4,
-                VideoGame = csgo,
-                VideoGameId = 1
-            };
+            
             //var result = (VideoGame)((ViewResult)controller.Details(1)).Model;
             // Act
-            ViewResult result = controller.DeleteReview(3, 1) as ViewResult;
+            ViewResult result = controller.DeleteReview(1, 1) as ViewResult;
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.ViewName);
         }
     }
 }
