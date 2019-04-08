@@ -31,7 +31,7 @@ namespace ASPAssignment2.Controllers
         public ActionResult Index()
         {
             //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
-            return View("Index");
+            return View("Index", db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
         }
 
         // GET: VideoGames/Games
@@ -43,7 +43,7 @@ namespace ASPAssignment2.Controllers
 
             //return View(db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
 
-            return View("Index");
+            return View("VideoGames", db.VideoGames.Include(v => v.Genre).OrderBy(o => o.Name).ToList());
             //return View(videoGames.OrderBy(o => o.Genre).ThenBy(o => o.Name).ToList());
         }
 
@@ -182,6 +182,7 @@ namespace ASPAssignment2.Controllers
                 {
                     db.VideoGames.Add(videoGame);
                     db.SaveChanges();
+                    return Redirect("Index");
                 }
                 else
                     bl.CreateVideoGames(videoGame);
@@ -189,7 +190,7 @@ namespace ASPAssignment2.Controllers
             }
 
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", videoGame.GenreId);
-            return View("Create", videoGame);
+            return View("Create",videoGame);
         }
 
         // GET: VideoGames/Edit/5
