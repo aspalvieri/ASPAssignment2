@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace ASPAssignment2.Tests.Fakes
 {
+    /*fake null calss for unit testing*/
     class FakeNullVideoGame : IVideoGamesMock
     {
         public void DeleteReviews(Reviews review)
         {
             return;
         }
-
+        /*try to delete videogame if it not exist, return false*/
         public bool DeleteVideoGames(VideoGame videoGame)
         {
             List<VideoGame> videoGames = createVideoGames();
@@ -30,7 +31,7 @@ namespace ASPAssignment2.Tests.Fakes
         public void Dispose()
         {
         }
-
+        /*try to get video game, if it not exist, return the first one*/
         public VideoGame GetVideoGame(int id)
         {
             List<VideoGame> videoGames = createVideoGames();
@@ -88,7 +89,7 @@ namespace ASPAssignment2.Tests.Fakes
             this.a = videoGame;
             return;
         }
-
+        /*try to get reviews if it not exist, return first one*/
         public Reviews GetReviews(int id)
         {
             List<Reviews> reviews = createReviews();

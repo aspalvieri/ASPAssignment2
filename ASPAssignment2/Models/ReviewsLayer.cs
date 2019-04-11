@@ -6,6 +6,7 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
+    /*Business layer inherite from IreviewsMock class*/
     public class ReviewsLayer : IReviewsMock
     {
         /*
@@ -39,28 +40,29 @@ namespace ASPAssignment2.Models
             return reviews;
         }*/
         private DatabaseContext db = new DatabaseContext();
+        /*create reviews*/
         public void CreateReviews(Reviews a)
         {
             db.Reviews.Add(a);
             db.SaveChanges();
         }
-
+        /*delete reviews*/
         public void DeleteReviews(Reviews a)
         {
             db.Reviews.Remove(a);
             db.SaveChanges();
         }
-
+        /*get review with id*/
         public Reviews GetReviews(int id)
         {
             return db.Reviews.Find(id);
         }
-
+        /*get review list*/
         public IQueryable<Reviews> GetReviews()
         {
             return db.Reviews;
         }
-
+        /*update reivews*/
         public void UpdateReviews(int id, Reviews a)
         {
             db.Entry(a).State = EntityState.Modified;

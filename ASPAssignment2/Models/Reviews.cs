@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace ASPAssignment2.Models
-{
+{   /*create class for reviews controller*/
     public class Reviews
     {
         public virtual int ReviewsId { get; set; }
@@ -26,7 +26,7 @@ namespace ASPAssignment2.Models
         public virtual int Stars { get; set; }
 
         public virtual VideoGame VideoGame { get; set; }
-
+        /*if review input value satisfy validation*/
         public bool CheckModelState()
         {
             //Check for blanks

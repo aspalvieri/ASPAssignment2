@@ -14,6 +14,7 @@ namespace ASPAssignment2
     {
         protected void Application_Start()
         {
+            //initialize db use the method
             //Database.SetInitializer(new AccountContextInitializer());
             Database.SetInitializer(new DatabaseContextInitializer());
 

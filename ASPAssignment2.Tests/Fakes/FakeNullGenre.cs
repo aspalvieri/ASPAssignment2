@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASPAssignment2.Tests.Fakes
 {
+    /*null class for unit testing*/
     class FakeNullGenre : IGenreMock
     {
         public bool testCase = false;
@@ -25,7 +26,7 @@ namespace ASPAssignment2.Tests.Fakes
         {
             return;
         }
-
+        /*try to delete genre if it not exist, return false*/
         public bool DeleteGenre(Genre genre)
         {
             List<Genre> genres = createGenres();
@@ -53,7 +54,7 @@ namespace ASPAssignment2.Tests.Fakes
                 return false;
             }
         }
-
+        /*create genre seed for test*/
         private List<Genre> createGenres()
         {
             Genre comedy = new Genre { GenreId = 3, Name = "Comedy", Description = "deep breath in your tough life" };
@@ -62,6 +63,7 @@ namespace ASPAssignment2.Tests.Fakes
             List<Genre> genres = new List<Genre> { };
             return genres;
         }
+        /*try to get videogame if it not exist, return first*/
         public Genre GetGenre(int id)
         {
             List<Genre> genres = createGenres();
@@ -75,7 +77,7 @@ namespace ASPAssignment2.Tests.Fakes
                 return genres.FirstOrDefault();
             }
         }
-
+        /*try to get genre list*/
         public IQueryable<Genre> GetGenres()
         {
             return createGenres().AsQueryable();

@@ -7,9 +7,11 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
+    /*create class for videogames controller*/
     public class VideoGame
     {
         //[Key]
+        
         public virtual int VideoGameId { get; set; }
 
         public virtual int GenreId { get; set; }

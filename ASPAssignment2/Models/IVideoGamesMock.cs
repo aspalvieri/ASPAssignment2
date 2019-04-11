@@ -5,6 +5,7 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
+    /*interface for VideogamesBL*/
     public interface IVideoGamesMock
     {
         IQueryable<VideoGame> GetVideoGames();

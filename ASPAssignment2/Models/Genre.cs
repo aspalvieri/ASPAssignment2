@@ -8,6 +8,7 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
+    /*Genre class*/
     public class Genre
     {
         /*[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

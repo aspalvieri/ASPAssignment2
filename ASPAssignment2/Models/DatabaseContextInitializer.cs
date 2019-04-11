@@ -6,8 +6,10 @@ using System.Web;
 
 namespace ASPAssignment2.Models
 {
+    /*initialize database*/
     public class DatabaseContextInitializer : DropCreateDatabaseAlways<DatabaseContext>
     {
+        /*create seeds*/
         protected override void Seed(DatabaseContext context)
         {
             Genre comedy = new Genre { Name = "Comedy", Description = "Deep breath in your tough life." };
@@ -63,6 +65,7 @@ namespace ASPAssignment2.Models
 
         }
     }
+    /*initialize*/
     public class AccountContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)

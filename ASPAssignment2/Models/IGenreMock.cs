@@ -2,6 +2,7 @@
 
 namespace ASPAssignment2.Models
 {
+    /*interface for genre class*/
     public interface IGenreMock
     {
         void CreateGenre(Genre a);

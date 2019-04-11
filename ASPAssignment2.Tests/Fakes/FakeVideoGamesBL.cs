@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace ASPAssignment2.Tests.Fakes
 {
+    /*fake class for unit testing*/
     class FakeVideoGamesBL : IVideoGamesMock
     {
         public List<VideoGame> videoGames;
         public List<Reviews> reviews;
-
+        /*try to delete reviews if it exist*/
         public void DeleteReviews(Reviews review)
         {
             if (reviews.Contains(review))
@@ -19,7 +20,7 @@ namespace ASPAssignment2.Tests.Fakes
                 reviews.Remove(review);
             }
         }
-
+        /*try to delete videogame if it not exist, return false*/
         public bool DeleteVideoGames(VideoGame videoGame)
         {
             //List<VideoGame> videoGames = createVideoGames();
@@ -37,7 +38,7 @@ namespace ASPAssignment2.Tests.Fakes
         public void Dispose()
         {
         }
-
+        /*add review*/
         public void AddReview(int vID, int rID, string sub, int score, string des)
         {
             List<VideoGame> videoGames = createVideoGames();
@@ -53,6 +54,7 @@ namespace ASPAssignment2.Tests.Fakes
             }
 
         }
+        /*try to get videogame if it not exist, return first one*/
         public VideoGame GetVideoGame(int id)
         {
             videoGames = createVideoGames();
@@ -66,7 +68,7 @@ namespace ASPAssignment2.Tests.Fakes
                 return null;
             }
         }
-
+        /*create game seed for unit testing*/
         private List<VideoGame> createVideoGames()
         {
             Genre fps = new Genre {GenreId = 101, Name = "FPS", Description = "First-person shooter." };
@@ -100,6 +102,7 @@ namespace ASPAssignment2.Tests.Fakes
         {
             return createVideoGames().AsQueryable();
         }
+        /*create review seed for unit testing*/
         private List<Reviews> createReviews()
         {
             Genre fps = new Genre { GenreId = 1, Name = "FPS", Description = "First-person shooter." };
@@ -161,7 +164,7 @@ namespace ASPAssignment2.Tests.Fakes
             this.a = videoGame;
             return;
         }
-
+        /*try to get reviews if it not exist, return first one*/
         public Reviews GetReviews(int id)
         {
             reviews = createReviews();
