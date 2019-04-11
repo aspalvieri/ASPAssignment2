@@ -142,7 +142,7 @@ namespace ASPAssignment2.Models
             db.SaveChanges();
             return videoGame;
         }
-        /*
+        /* save videogame */
         public VideoGame SaveVideoGames(VideoGame videoGame)
         {
             if (videoGame.VideoGameId == 0)
@@ -155,7 +155,7 @@ namespace ASPAssignment2.Models
             }
             db.SaveChanges();
             return videoGame;
-        }*/
+        }
         /*update videogame*/
         public void UpdateVideoGames(int id, VideoGame videoGame)
         {
